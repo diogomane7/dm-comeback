@@ -1,0 +1,1670 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>DM's Comeback — 16 Week Return Protocol</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Bebas+Neue&family=JetBrains+Mono:wght@400;500;700&family=Oswald:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  :root {
+    --ink: #0a0a0a;
+    --paper: #f4f1ea;
+    --paper-dark: #e8e3d6;
+    --blood: #c1272d;
+    --blood-dark: #8b1d22;
+    --steel: #2a2a2a;
+    --rust: #a04020;
+    --gold: #c89b3c;
+    --line: rgba(10,10,10,0.15);
+  }
+  html, body { background: var(--paper); color: var(--ink); font-family: 'Oswald', sans-serif; font-weight: 400; line-height: 1.5; }
+  body::before {
+    content: ''; position: fixed; top: 0; left: 0; right: 0; bottom: 0;
+    background-image:
+      radial-gradient(circle at 20% 30%, rgba(0,0,0,0.04) 0%, transparent 40%),
+      radial-gradient(circle at 80% 70%, rgba(0,0,0,0.03) 0%, transparent 40%),
+      url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/></filter><rect width='200' height='200' filter='url(%23n)' opacity='0.08'/></svg>");
+    pointer-events: none; z-index: 1000; mix-blend-mode: multiply;
+  }
+  .container { max-width: 1100px; margin: 0 auto; padding: 0 40px; }
+  .cover { min-height: 100vh; padding: 60px 0 80px; border-bottom: 8px solid var(--ink); position: relative; overflow: hidden; }
+  .cover::before { content: ''; position: absolute; top: -100px; right: -100px; width: 500px; height: 500px; background: var(--blood); transform: rotate(45deg); opacity: 0.08; }
+  .meta-bar { display: flex; justify-content: space-between; align-items: center; padding: 20px 0; border-bottom: 2px solid var(--ink); font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: 0.15em; text-transform: uppercase; flex-wrap: wrap; gap: 10px; }
+  .meta-bar .dot { display: inline-block; width: 8px; height: 8px; background: var(--blood); border-radius: 50%; margin-right: 8px; vertical-align: middle; }
+  .cover-title { font-family: 'Anton', sans-serif; font-size: clamp(80px, 18vw, 220px); line-height: 0.85; letter-spacing: -0.02em; margin-top: 40px; text-transform: uppercase; }
+  .cover-title .red { color: var(--blood); }
+  .cover-title .strike { position: relative; display: inline-block; }
+  .cover-title .strike::after { content: ''; position: absolute; left: -5%; right: -5%; top: 48%; height: 14px; background: var(--ink); transform: rotate(-2deg); }
+  .cover-subtitle { font-family: 'Bebas Neue', sans-serif; font-size: clamp(28px, 4vw, 48px); letter-spacing: 0.05em; margin-top: 30px; color: var(--steel); border-left: 6px solid var(--blood); padding-left: 20px; }
+  .cover-stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0; margin-top: 80px; border-top: 2px solid var(--ink); border-bottom: 2px solid var(--ink); }
+  .stat { padding: 24px 16px; border-right: 1px solid var(--line); }
+  .stat:last-child { border-right: none; }
+  .stat-label { font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--steel); margin-bottom: 8px; }
+  .stat-value { font-family: 'Anton', sans-serif; font-size: 36px; line-height: 1; }
+  .stat-target { font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--blood); margin-top: 6px; }
+  .manifesto { margin-top: 60px; padding: 40px; background: var(--ink); color: var(--paper); position: relative; }
+  .manifesto-label { font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: 0.3em; color: var(--blood); text-transform: uppercase; margin-bottom: 20px; }
+  .manifesto-text { font-family: 'Bebas Neue', sans-serif; font-size: clamp(20px, 2.5vw, 30px); line-height: 1.3; letter-spacing: 0.02em; }
+  .manifesto-text em { color: var(--blood); font-style: normal; }
+  .phase { padding: 100px 0 80px; border-bottom: 4px solid var(--ink); page-break-before: always; position: relative; }
+  .phase-banner { display: grid; grid-template-columns: auto 1fr; gap: 40px; align-items: end; padding-bottom: 30px; border-bottom: 6px double var(--ink); margin-bottom: 50px; }
+  .phase-number { font-family: 'Anton', sans-serif; font-size: clamp(120px, 16vw, 200px); line-height: 0.8; color: var(--blood); -webkit-text-stroke: 2px var(--ink); }
+  .phase-titleblock { padding-bottom: 20px; }
+  .phase-tag { font-family: 'JetBrains Mono', monospace; font-size: 12px; letter-spacing: 0.25em; text-transform: uppercase; color: var(--steel); margin-bottom: 8px; }
+  .phase-title { font-family: 'Anton', sans-serif; font-size: clamp(40px, 6vw, 72px); line-height: 0.9; text-transform: uppercase; letter-spacing: -0.01em; }
+  .phase-dates { font-family: 'Bebas Neue', sans-serif; font-size: 22px; margin-top: 12px; color: var(--blood); letter-spacing: 0.05em; }
+  .phase-thesis { font-family: 'Oswald', sans-serif; font-weight: 300; font-size: 18px; line-height: 1.7; max-width: 800px; margin-bottom: 50px; padding-left: 20px; border-left: 3px solid var(--blood); }
+  .phase-thesis strong { font-weight: 600; background: var(--ink); color: var(--paper); padding: 0 6px; }
+  .week { margin-bottom: 50px; page-break-inside: avoid; }
+  .week-header { display: flex; align-items: baseline; gap: 20px; padding: 14px 20px; background: var(--ink); color: var(--paper); margin-bottom: 0; flex-wrap: wrap; }
+  .week-num { font-family: 'Anton', sans-serif; font-size: 36px; line-height: 1; color: var(--blood); }
+  .week-name { font-family: 'Bebas Neue', sans-serif; font-size: 24px; letter-spacing: 0.1em; text-transform: uppercase; }
+  .week-progression { margin-left: auto; font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: 0.15em; color: var(--paper-dark); }
+  .days { display: grid; grid-template-columns: 1fr; border: 2px solid var(--ink); border-top: none; }
+  .day { border-bottom: 1px solid var(--line); padding: 0; }
+  .day:last-child { border-bottom: none; }
+  .day-header { display: grid; grid-template-columns: 100px 1fr auto; gap: 20px; align-items: center; padding: 16px 24px; background: var(--paper-dark); border-bottom: 1px solid var(--line); }
+  .day-name { font-family: 'Anton', sans-serif; font-size: 24px; letter-spacing: 0.05em; text-transform: uppercase; }
+  .day-focus { font-family: 'Oswald', sans-serif; font-weight: 500; font-size: 15px; text-transform: uppercase; letter-spacing: 0.1em; color: var(--steel); }
+  .day-tag { font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 0.15em; text-transform: uppercase; background: var(--ink); color: var(--paper); padding: 4px 10px; }
+  .day-tag.rest { background: var(--steel); }
+  .day-tag.bball { background: var(--blood); }
+  .day-tag.rehab { background: var(--rust); }
+  table.exercises { width: 100%; border-collapse: collapse; font-family: 'Oswald', sans-serif; font-size: 14px; }
+  table.exercises thead th { font-family: 'JetBrains Mono', monospace; font-size: 9px; letter-spacing: 0.2em; text-transform: uppercase; text-align: left; padding: 10px 16px; background: var(--paper); border-bottom: 2px solid var(--ink); color: var(--steel); font-weight: 500; }
+  table.exercises tbody td { padding: 10px 16px; border-bottom: 1px solid var(--line); vertical-align: top; }
+  table.exercises tbody tr:last-child td { border-bottom: none; }
+  table.exercises .ex-name { font-weight: 500; color: var(--ink); width: 32%; }
+  table.exercises .ex-sets, table.exercises .ex-reps, table.exercises .ex-tempo, table.exercises .ex-load { font-family: 'JetBrains Mono', monospace; font-size: 13px; }
+  table.exercises .ex-load { color: var(--blood); font-weight: 700; }
+  table.exercises .ex-note { font-size: 12px; color: var(--steel); font-style: italic; width: 24%; }
+  table.exercises tr.section-header td { background: var(--ink); color: var(--paper); font-family: 'Bebas Neue', sans-serif; font-size: 13px; letter-spacing: 0.2em; padding: 8px 16px; text-transform: uppercase; }
+  .callout { margin: 30px 0; padding: 24px 30px; background: var(--paper-dark); border-left: 6px solid var(--blood); }
+  .callout-title { font-family: 'Bebas Neue', sans-serif; font-size: 18px; letter-spacing: 0.15em; text-transform: uppercase; color: var(--blood); margin-bottom: 10px; }
+  .callout-text { font-family: 'Oswald', sans-serif; font-weight: 300; font-size: 15px; line-height: 1.6; }
+  .callout.warning { background: var(--ink); color: var(--paper); border-left-color: var(--gold); }
+  .callout.warning .callout-title { color: var(--gold); }
+  .nutrition-block { margin-top: 50px; padding: 40px; background: var(--ink); color: var(--paper); position: relative; overflow: hidden; }
+  .nutrition-block::before { content: 'FUEL'; position: absolute; top: 10px; right: 20px; font-family: 'Anton', sans-serif; font-size: 80px; color: var(--paper); opacity: 0.06; letter-spacing: 0.05em; }
+  .nutrition-title { font-family: 'Anton', sans-serif; font-size: 36px; text-transform: uppercase; margin-bottom: 8px; letter-spacing: 0.02em; }
+  .nutrition-sub { font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: 0.2em; color: var(--blood); text-transform: uppercase; margin-bottom: 30px; }
+  .macro-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1px; background: rgba(244,241,234,0.15); margin-bottom: 30px; }
+  .macro { background: var(--ink); padding: 20px; }
+  .macro-label { font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 0.2em; color: var(--paper-dark); text-transform: uppercase; margin-bottom: 8px; }
+  .macro-value { font-family: 'Anton', sans-serif; font-size: 42px; line-height: 1; color: var(--paper); }
+  .macro-unit { font-family: 'Oswald', sans-serif; font-size: 14px; color: var(--blood); margin-left: 6px; }
+  .nutrition-rules { list-style: none; padding: 0; }
+  .nutrition-rules li { padding: 10px 0; border-bottom: 1px solid rgba(244,241,234,0.1); font-family: 'Oswald', sans-serif; font-weight: 300; font-size: 14px; }
+  .nutrition-rules li::before { content: '→ '; color: var(--blood); font-weight: 700; margin-right: 10px; }
+  .milestone { margin-top: 40px; padding: 30px; border: 3px solid var(--ink); background: var(--paper); position: relative; }
+  .milestone::before { content: 'CHECKPOINT'; position: absolute; top: -12px; left: 20px; background: var(--blood); color: var(--paper); font-family: 'Bebas Neue', sans-serif; font-size: 14px; letter-spacing: 0.2em; padding: 4px 14px; }
+  .milestone-title { font-family: 'Anton', sans-serif; font-size: 28px; text-transform: uppercase; margin-bottom: 16px; margin-top: 6px; }
+  .milestone-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 14px; }
+  .milestone-item { display: grid; grid-template-columns: auto 1fr; gap: 12px; align-items: baseline; padding: 8px 0; border-bottom: 1px dashed var(--line); }
+  .milestone-marker { width: 14px; height: 14px; border: 2px solid var(--ink); background: var(--paper); }
+  .milestone-text { font-family: 'Oswald', sans-serif; font-weight: 400; font-size: 14px; }
+  .milestone-text strong { color: var(--blood); font-weight: 600; }
+  .closing { padding: 100px 0 60px; text-align: center; background: var(--ink); color: var(--paper); margin-top: 80px; page-break-before: always; }
+  .closing-mark { font-family: 'Anton', sans-serif; font-size: clamp(60px, 10vw, 120px); line-height: 0.9; text-transform: uppercase; }
+  .closing-mark .red { color: var(--blood); }
+  .closing-quote { max-width: 700px; margin: 50px auto 0; font-family: 'Bebas Neue', sans-serif; font-size: 24px; line-height: 1.4; letter-spacing: 0.05em; }
+  .closing-sig { font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: 0.3em; margin-top: 40px; color: var(--blood); }
+  .tracking { padding: 60px 0; background: var(--paper-dark); border-top: 4px solid var(--ink); }
+  .tracking h2 { font-family: 'Anton', sans-serif; font-size: 48px; text-transform: uppercase; margin-bottom: 30px; }
+  .tracking-table { width: 100%; border-collapse: collapse; background: var(--paper); }
+  .tracking-table th { background: var(--ink); color: var(--paper); padding: 12px; text-align: left; font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 0.15em; text-transform: uppercase; }
+  .tracking-table td { padding: 10px 12px; border: 1px solid var(--line); font-family: 'Oswald', sans-serif; font-size: 13px; }
+  .tracking-table .metric { font-weight: 600; background: var(--paper-dark); }
+  @media print {
+    body { background: white; }
+    body::before { display: none; }
+    .phase { page-break-before: always; }
+    .week { page-break-inside: avoid; }
+    .nutrition-block { page-break-inside: avoid; }
+    .milestone { page-break-inside: avoid; }
+    .closing { page-break-before: always; }
+  }
+  /* Week collapse */
+  .week-header { cursor: pointer; user-select: none; }
+  .week-header .week-toggle { font-size: 12px; opacity: 0.6; margin-right: 10px; display: inline-block; transition: transform 0.2s; transform-origin: center; }
+  .week.collapsed .week-header .week-toggle { transform: rotate(-90deg); }
+  .week.collapsed .days { display: none; }
+  /* Week nav bar */
+  .week-nav { position: sticky; top: 0; z-index: 1001; background: var(--ink); border-bottom: 3px solid var(--blood); }
+  .week-nav-inner { max-width: 1100px; margin: 0 auto; padding: 8px 40px; display: flex; flex-wrap: nowrap; gap: 5px; align-items: center; overflow-x: auto; -webkit-overflow-scrolling: touch; scrollbar-width: none; }
+  .week-nav-inner::-webkit-scrollbar { display: none; }
+  .week-nav-label { font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 0.2em; color: var(--blood); text-transform: uppercase; margin-right: 8px; white-space: nowrap; }
+  .week-nav-btn { font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: 0.05em; background: transparent; border: 1px solid rgba(244,241,234,0.25); color: var(--paper); padding: 5px 9px; cursor: pointer; text-transform: uppercase; transition: background 0.15s, border-color 0.15s; line-height: 1; white-space: nowrap; flex-shrink: 0; }
+  .week-nav-btn:hover, .week-nav-btn:active { background: var(--blood); border-color: var(--blood); }
+  .week-nav-sep { width: 1px; height: 18px; background: rgba(244,241,234,0.2); margin: 0 3px; flex-shrink: 0; }
+  /* Hamburger button (desktop: hidden) */
+  .week-nav-hamburger { display: none; flex-direction: column; justify-content: center; align-items: center; gap: 5px; width: 42px; height: 42px; background: transparent; border: 1px solid rgba(244,241,234,0.25); cursor: pointer; padding: 0; margin-left: auto; flex-shrink: 0; }
+  .week-nav-hamburger span { display: block; width: 20px; height: 2px; background: var(--paper); transition: transform 0.22s ease, opacity 0.22s ease; }
+  .week-nav.open .week-nav-hamburger span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+  .week-nav.open .week-nav-hamburger span:nth-child(2) { opacity: 0; transform: scaleX(0); }
+  .week-nav.open .week-nav-hamburger span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+  /* Drawer (hidden by default, shown on mobile when open) */
+  .week-nav-drawer { display: none; }
+  .week-nav.open .week-nav-drawer { display: block; background: var(--ink); border-top: 1px solid rgba(244,241,234,0.08); padding: 16px; }
+  .week-nav-drawer-phase { font-family: 'JetBrains Mono', monospace; font-size: 9px; letter-spacing: 0.2em; color: var(--blood); text-transform: uppercase; margin: 16px 0 8px; }
+  .week-nav-drawer-phase:first-child { margin-top: 0; }
+  .week-nav-drawer-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 7px; }
+  .week-nav-drawer-btn { display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 14px 6px; background: rgba(244,241,234,0.04); border: 1px solid rgba(244,241,234,0.12); color: var(--paper); cursor: pointer; transition: background 0.15s, border-color 0.15s; min-height: 68px; }
+  .week-nav-drawer-btn:hover, .week-nav-drawer-btn:active { background: var(--blood); border-color: var(--blood); }
+  .week-nav-drawer-btn .dnb-num { font-family: 'Anton', sans-serif; font-size: 26px; color: var(--blood); line-height: 1; transition: color 0.15s; }
+  .week-nav-drawer-btn:hover .dnb-num, .week-nav-drawer-btn:active .dnb-num { color: var(--paper); }
+  .week-nav-drawer-btn .dnb-name { font-family: 'JetBrains Mono', monospace; font-size: 7px; letter-spacing: 0.04em; color: rgba(244,241,234,0.5); margin-top: 5px; text-align: center; text-transform: uppercase; line-height: 1.3; }
+  @media (max-width: 768px) {
+    /* Global */
+    .container { padding: 0 16px; }
+    /* Cover */
+    .cover { min-height: unset; padding: 24px 0 32px; }
+    .cover-title { font-size: clamp(54px, 18vw, 110px); margin-top: 20px; }
+    .cover-subtitle { font-size: clamp(15px, 5vw, 24px); margin-top: 14px; padding-left: 14px; border-left-width: 4px; }
+    .cover-stats { grid-template-columns: repeat(2, 1fr); margin-top: 24px; }
+    .stat { padding: 14px 10px; }
+    .stat-value { font-size: 26px; }
+    .manifesto { padding: 18px; margin-top: 24px; }
+    .manifesto-text { font-size: clamp(15px, 4.5vw, 22px); }
+    /* Phase */
+    .phase { padding: 36px 0 28px; }
+    .phase-banner { grid-template-columns: 1fr; gap: 0; padding-bottom: 16px; margin-bottom: 24px; }
+    .phase-number { font-size: clamp(54px, 18vw, 90px); line-height: 1; }
+    .phase-title { font-size: clamp(28px, 8vw, 52px); }
+    .phase-dates { font-size: 17px; margin-top: 8px; }
+    .phase-thesis { font-size: 14px; line-height: 1.6; margin-bottom: 24px; padding-left: 14px; }
+    /* Week */
+    .week { margin-bottom: 24px; }
+    .week-header { padding: 10px 14px; gap: 6px; align-items: center; }
+    .week-num { font-size: 24px; }
+    .week-name { font-size: 16px; }
+    .week-progression { font-size: 9px; letter-spacing: 0.07em; width: 100%; margin-left: 0; margin-top: 2px; }
+    /* Day header: name + tag on row 1, focus on row 2 */
+    .day-header { display: flex; flex-wrap: wrap; align-items: center; gap: 4px 8px; padding: 10px 14px; }
+    .day-name { font-size: 18px; }
+    .day-tag { margin-left: auto; }
+    .day-focus { flex: 0 0 100%; font-size: 12px; order: 3; margin-top: 2px; }
+    /* Exercise table: hide Tempo column, compact cells */
+    table.exercises { font-size: 12px; }
+    table.exercises thead th { font-size: 8px; padding: 7px 8px; }
+    table.exercises thead th:nth-child(4) { display: none; }
+    table.exercises tbody td { padding: 8px 8px; }
+    table.exercises tbody td:nth-child(4) { display: none; }
+    table.exercises .ex-sets, table.exercises .ex-reps, table.exercises .ex-load { font-size: 11px; }
+    /* Callout */
+    .callout { padding: 14px 16px; margin: 16px 0; }
+    .callout-title { font-size: 15px; }
+    .callout-text { font-size: 13px; }
+    /* Nutrition */
+    .nutrition-block { padding: 20px 16px; }
+    .nutrition-title { font-size: 26px; }
+    .macro-grid { grid-template-columns: repeat(2, 1fr); }
+    .macro { padding: 14px; }
+    .macro-value { font-size: 30px; }
+    /* Milestone */
+    .milestone { padding: 20px 16px; margin-top: 28px; }
+    .milestone-grid { grid-template-columns: 1fr; }
+    /* Tracking */
+    .tracking { padding: 36px 0; }
+    .tracking h2 { font-size: 34px; margin-bottom: 16px; }
+    .tracking-table { display: block; overflow-x: auto; -webkit-overflow-scrolling: touch; }
+    /* Closing */
+    .closing { padding: 50px 0 36px; margin-top: 36px; }
+    .closing-quote { font-size: 16px; margin-top: 24px; padding: 0 16px; }
+    .closing-sig { font-size: 9px; letter-spacing: 0.15em; }
+    /* Nav bar — hamburger mode */
+    .week-nav-inner { padding: 0 16px; height: 46px; flex-wrap: nowrap; }
+    .week-nav-label { display: block; font-size: 10px; letter-spacing: 0.15em; }
+    .week-nav-btn { display: none; }
+    .week-nav-sep { display: none; }
+    .week-nav-hamburger { display: flex; }
+  }
+</style>
+</head>
+<body>
+
+<div class="cover">
+  <div class="container">
+    <div class="meta-bar">
+      <span><span class="dot"></span>PROTOCOL // 16 WEEKS // MAY → SEPT 2026</span>
+      <span>ATHLETE: DM // AGE 31 // PROLIGA</span>
+    </div>
+    <h1 class="cover-title">DM'S<br><span class="red">COME</span><span class="strike">BACK</span></h1>
+    <p class="cover-subtitle">A surgical 16-week return to professional basketball. No shortcuts. No generic plans. Just the work.</p>
+    <div class="cover-stats">
+      <div class="stat"><div class="stat-label">Bodyweight</div><div class="stat-value">95<span style="font-size:18px;color:var(--steel)"> kg</span></div><div class="stat-target">→ 88-89 kg</div></div>
+      <div class="stat"><div class="stat-label">Squat 1RM</div><div class="stat-value">118<span style="font-size:18px;color:var(--steel)"> kg</span></div><div class="stat-target">→ 145+ kg</div></div>
+      <div class="stat"><div class="stat-label">Vertical</div><div class="stat-value">70<span style="font-size:18px;color:var(--steel)"> cm</span></div><div class="stat-target">→ 80+ cm</div></div>
+      <div class="stat"><div class="stat-label">Body Fat</div><div class="stat-value">32<span style="font-size:18px;color:var(--steel)"> %</span></div><div class="stat-target">→ 18-20 %</div></div>
+    </div>
+    <div class="manifesto">
+      <div class="manifesto-label">// THE RULES</div>
+      <div class="manifesto-text">
+        Eight weeks before you judge anything. Sixteen before you panic.<br>
+        Pain over <em>3/10</em> means stop. Asymmetry is the enemy.<br>
+        The left side leads recovery. The right side waits.<br>
+        Strength feeds power. Power feeds the jump. The jump feeds the season.<br>
+        <em>Discipline beats motivation. Consistency beats intensity. Show up.</em>
+      </div>
+    </div>
+  </div>
+</div>
+
+<nav class="week-nav">
+  <div class="week-nav-inner">
+    <span class="week-nav-label">Jump to week</span>
+    <button class="week-nav-btn" data-week="w1">W1</button>
+    <button class="week-nav-btn" data-week="w2">W2</button>
+    <button class="week-nav-btn" data-week="w3">W3</button>
+    <button class="week-nav-btn" data-week="w4">W4</button>
+    <span class="week-nav-sep"></span>
+    <button class="week-nav-btn" data-week="w5">W5</button>
+    <button class="week-nav-btn" data-week="w6">W6</button>
+    <button class="week-nav-btn" data-week="w7">W7</button>
+    <button class="week-nav-btn" data-week="w8">W8</button>
+    <span class="week-nav-sep"></span>
+    <button class="week-nav-btn" data-week="w9">W9</button>
+    <button class="week-nav-btn" data-week="w10">W10</button>
+    <button class="week-nav-btn" data-week="w11">W11</button>
+    <button class="week-nav-btn" data-week="w12">W12</button>
+    <span class="week-nav-sep"></span>
+    <button class="week-nav-btn" data-week="w13">W13</button>
+    <button class="week-nav-btn" data-week="w14">W14</button>
+    <button class="week-nav-btn" data-week="w15">W15</button>
+    <button class="week-nav-btn" data-week="w16">W16</button>
+    <button class="week-nav-hamburger" aria-label="Open week menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+  <div class="week-nav-drawer" aria-hidden="true">
+    <div class="week-nav-drawer-phase">// Phase 1 — Reset &amp; Foundation</div>
+    <div class="week-nav-drawer-grid">
+      <button class="week-nav-drawer-btn" data-week="w1"><span class="dnb-num">W1</span><span class="dnb-name">Deload &amp; Rehab</span></button>
+      <button class="week-nav-drawer-btn" data-week="w2"><span class="dnb-num">W2</span><span class="dnb-name">Reintroduce Load</span></button>
+      <button class="week-nav-drawer-btn" data-week="w3"><span class="dnb-num">W3</span><span class="dnb-name">Build the Base</span></button>
+      <button class="week-nav-drawer-btn" data-week="w4"><span class="dnb-num">W4</span><span class="dnb-name">Test &amp; Confirm</span></button>
+    </div>
+    <div class="week-nav-drawer-phase">// Phase 2 — Strength &amp; Plyo</div>
+    <div class="week-nav-drawer-grid">
+      <button class="week-nav-drawer-btn" data-week="w5"><span class="dnb-num">W5</span><span class="dnb-name">Plyo Re-Entry</span></button>
+      <button class="week-nav-drawer-btn" data-week="w6"><span class="dnb-num">W6</span><span class="dnb-name">Heavy + Plyo</span></button>
+      <button class="week-nav-drawer-btn" data-week="w7"><span class="dnb-num">W7</span><span class="dnb-name">Intensive Plyo</span></button>
+      <button class="week-nav-drawer-btn" data-week="w8"><span class="dnb-num">W8</span><span class="dnb-name">Test Week</span></button>
+    </div>
+    <div class="week-nav-drawer-phase">// Phase 3 — Power Block</div>
+    <div class="week-nav-drawer-grid">
+      <button class="week-nav-drawer-btn" data-week="w9"><span class="dnb-num">W9</span><span class="dnb-name">Power Begins</span></button>
+      <button class="week-nav-drawer-btn" data-week="w10"><span class="dnb-num">W10</span><span class="dnb-name">Volume Up</span></button>
+      <button class="week-nav-drawer-btn" data-week="w11"><span class="dnb-num">W11</span><span class="dnb-name">Cond. Spike</span></button>
+      <button class="week-nav-drawer-btn" data-week="w12"><span class="dnb-num">W12</span><span class="dnb-name">Power Peak</span></button>
+    </div>
+    <div class="week-nav-drawer-phase">// Phase 4 — Peak &amp; Sharpen</div>
+    <div class="week-nav-drawer-grid">
+      <button class="week-nav-drawer-btn" data-week="w13"><span class="dnb-num">W13</span><span class="dnb-name">Sharpen</span></button>
+      <button class="week-nav-drawer-btn" data-week="w14"><span class="dnb-num">W14</span><span class="dnb-name">Game Speed</span></button>
+      <button class="week-nav-drawer-btn" data-week="w15"><span class="dnb-num">W15</span><span class="dnb-name">Final Push</span></button>
+      <button class="week-nav-drawer-btn" data-week="w16"><span class="dnb-num">W16</span><span class="dnb-name">Taper &amp; Test</span></button>
+    </div>
+  </div>
+</nav>
+
+<section class="phase">
+<div class="container">
+<div class="phase-banner">
+<div class="phase-number">01</div>
+<div class="phase-titleblock">
+<div class="phase-tag">// PHASE ONE / WEEKS 01–04</div>
+<h2 class="phase-title">Reset &amp;<br>Foundation</h2>
+<div class="phase-dates">May 5 → June 1</div>
+</div>
+</div>
+<p class="phase-thesis">The body is breaking down because volume has outrun recovery. <strong>Phase 1 is not about gains</strong> — it's about letting the glute medius heal, fixing left/right asymmetry, and rebuilding a foundation that won't crack under load. Strength work stays sub-maximal. Zero plyometrics. Basketball gets capped. If this phase is done right, the next twelve weeks become possible. If it's rushed, the season is gone.</p>
+<div class="callout warning">
+<div class="callout-title">// NON-NEGOTIABLES</div>
+<div class="callout-text">No basketball practices in Week 1. No plyometrics through Week 4. Drop the 18:6 fasting <strong>today</strong> — tendon collagen synthesis needs evenly-spaced protein. Glute medius rehab circuit is performed <em>twice daily</em> in Week 1, then daily through Week 4. Pain above 3/10 in any joint = stop the session.</div>
+</div>
+
+<div class="week">
+<div class="week-header"><span class="week-num">W1</span><span class="week-name">Deload &amp; Rehab</span><span class="week-progression">May 5 — May 11 // No barbell lower</span></div>
+<div class="days">
+
+<div class="day"><div class="day-header"><span class="day-name">Mon</span><span class="day-focus">Upper Push + Glute Rehab AM/PM</span><span class="day-tag rehab">REHAB</span></div>
+<table class="exercises"><thead><tr><th>Exercise</th><th>Sets</th><th>Reps</th><th>Tempo</th><th>Load</th><th>Note</th></tr></thead>
+<tbody>
+<tr class="section-header"><td colspan="6">AM &amp; PM — Glute Medius Rehab Circuit</td></tr>
+<tr><td class="ex-name">Side-lying clamshell</td><td class="ex-sets">3</td><td class="ex-reps">15/side</td><td class="ex-tempo">2-1-2</td><td class="ex-load">BW</td><td class="ex-note">No hip rotation</td></tr>
+<tr><td class="ex-name">Side-lying hip abduction</td><td class="ex-sets">3</td><td class="ex-reps">12/side</td><td class="ex-tempo">2-2-2</td><td class="ex-load">BW</td><td class="ex-note">Lead with heel</td></tr>
+<tr><td class="ex-name">Banded lateral walk</td><td class="ex-sets">3</td><td class="ex-reps">10 each way</td><td class="ex-tempo">controlled</td><td class="ex-load">light band</td><td class="ex-note">Above knees</td></tr>
+<tr><td class="ex-name">Copenhagen plank (short)</td><td class="ex-sets">3</td><td class="ex-reps">10s/side</td><td class="ex-tempo">hold</td><td class="ex-load">BW</td><td class="ex-note">Knee on bench</td></tr>
+<tr class="section-header"><td colspan="6">PM — Upper Body Session</td></tr>
+<tr><td class="ex-name">Chest-supported DB row</td><td class="ex-sets">4</td><td class="ex-reps">10</td><td class="ex-tempo">2-1-2</td><td class="ex-load">25 kg</td><td class="ex-note">No standing load</td></tr>
+<tr><td class="ex-name">Incline DB chest press</td><td class="ex-sets">4</td><td class="ex-reps">10</td><td class="ex-tempo">3-1-1</td><td class="ex-load">27.5 kg</td><td class="ex-note">Conservative</td></tr>
+<tr><td class="ex-name">DB shoulder press (seated)</td><td class="ex-sets">3</td><td class="ex-reps">10</td><td class="ex-tempo">2-1-2</td><td class="ex-load">17.5 kg</td><td class="ex-note">Back supported</td></tr>
+<tr><td class="ex-name">Lat pulldown</td><td class="ex-sets">3</td><td class="ex-reps">12</td><td class="ex-tempo">2-1-2</td><td class="ex-load">moderate</td><td class="ex-note">Full ROM</td></tr>
+<tr><td class="ex-name">Cable face pull</td><td class="ex-sets">3</td><td class="ex-reps">15</td><td class="ex-tempo">2-1-2</td><td class="ex-load">light</td><td class="ex-note">Posture</td></tr>
+<tr><td class="ex-name">Dead bug</td><td class="ex-sets">3</td><td class="ex-reps">10/side</td><td class="ex-tempo">slow</td><td class="ex-load">BW</td><td class="ex-note">Ribs down</td></tr>
+</tbody></table></div>
+
+<div class="day"><div class="day-header"><span class="day-name">Tue</span><span class="day-focus">Active Recovery + Rehab</span><span class="day-tag rehab">REHAB</span></div>
+<table class="exercises"><thead><tr><th>Exercise</th><th>Sets</th><th>Reps</th><th>Tempo</th><th>Load</th><th>Note</th></tr></thead>
+<tbody>
+<tr><td class="ex-name">Easy bike or pool</td><td class="ex-sets">1</td><td class="ex-reps">30 min</td><td class="ex-tempo">Z2 / RPE 4</td><td class="ex-load">low</td><td class="ex-note">No knee load</td></tr>
+<tr><td class="ex-name">Glute medius circuit AM</td><td class="ex-sets">3</td><td class="ex-reps">full</td><td class="ex-tempo">controlled</td><td class="ex-load">BW</td><td class="ex-note">From Mon</td></tr>
+<tr><td class="ex-name">Glute medius circuit PM</td><td class="ex-sets">3</td><td class="ex-reps">full</td><td class="ex-tempo">controlled</td><td class="ex-load">BW</td><td class="ex-note">Twice today</td></tr>
+<tr><td class="ex-name">Tibialis raises</td><td class="ex-sets">3</td><td class="ex-reps">20</td><td class="ex-tempo">2-1-2</td><td class="ex-load">BW</td><td class="ex-note">Wall-supported</td></tr>
+<tr><td class="ex-name">Standing calf raise (slow)</td><td class="ex-sets">3</td><td class="ex-reps">15</td><td class="ex-tempo">3-2-3</td><td class="ex-load">BW</td><td class="ex-note">Both equal</td></tr>
+</tbody></table></div>
+
+<div class="day"><div class="day-header"><span class="day-name">Wed</span><span class="day-focus">Upper Pull + Core</span><span class="day-tag">UPPER</span></div>
+<table class="exercises"><thead><tr><th>Exercise</th><th>Sets</th><th>Reps</th><th>Tempo</th><th>Load</th><th>Note</th></tr></thead>
+<tbody>
+<tr><td class="ex-name">Pull-ups</td><td class="ex-sets">4</td><td class="ex-reps">6-8</td><td class="ex-tempo">2-1-2</td><td class="ex-load">BW</td><td class="ex-note">Stop 2 RIR</td></tr>
+<tr><td class="ex-name">Single-arm DB row</td><td class="ex-sets">4</td><td class="ex-reps">10/side</td><td class="ex-tempo">2-1-2</td><td class="ex-load">30 kg</td><td class="ex-note">Brace hard</td></tr>
+<tr><td class="ex-name">Seated cable row</td><td class="ex-sets">3</td><td class="ex-reps">12</td><td class="ex-tempo">2-1-3</td><td class="ex-load">60 kg</td><td class="ex-note">Squeeze</td></tr>
+<tr><td class="ex-name">Barbell bench press</td><td class="ex-sets">4</td><td class="ex-reps">8</td><td class="ex-tempo">2-1-1</td><td class="ex-load">70 kg</td><td class="ex-note">Sub-max</td></tr>
+<tr><td class="ex-name">Lateral raise</td><td class="ex-sets">3</td><td class="ex-reps">15</td><td class="ex-tempo">2-1-2</td><td class="ex-load">10 kg</td><td class="ex-note">Strict</td></tr>
+<tr><td class="ex-name">Pallof press</td><td class="ex-sets">3</td><td class="ex-reps">12/side</td><td class="ex-tempo">3-2-3</td><td class="ex-load">light cable</td><td class="ex-note">Anti-rotation</td></tr>
+<tr><td class="ex-name">Side plank</td><td class="ex-sets">3</td><td class="ex-reps">30s/side</td><td class="ex-tempo">hold</td><td class="ex-load">BW</td><td class="ex-note">Hips stacked</td></tr>
+<tr><td class="ex-name">Glute medius circuit</td><td class="ex-sets">2</td><td class="ex-reps">full</td><td class="ex-tempo">controlled</td><td class="ex-load">BW</td><td class="ex-note">Once today</td></tr>
+</tbody></table></div>
+
+<div class="day"><div class="day-header"><span class="day-name">Thu</span><span class="day-focus">Walk + Mobility + Hip Rehab</span><span class="day-tag rest">RECOVERY</span></div>
+<table class="exercises"><thead><tr><th>Exercise</th><th>Sets</th><th>Reps</th><th>Tempo</th><th>Load</th><th>Note</th></tr></thead>
+<tbody>
+<tr><td class="ex-name">Walk (outdoor, flat)</td><td class="ex-sets">1</td><td class="ex-reps">40 min</td><td class="ex-tempo">brisk</td><td class="ex-load">BW</td><td class="ex-note">No incline</td></tr>
+<tr><td class="ex-name">Hip mobility flow</td><td class="ex-sets">1</td><td class="ex-reps">15 min</td><td class="ex-tempo">slow</td><td class="ex-load">BW</td><td class="ex-note">90/90, frog, pigeon</td></tr>
+<tr><td class="ex-name">Glute medius circuit</td><td class="ex-sets">3</td><td class="ex-reps">full</td><td class="ex-tempo">controlled</td><td class="ex-load">BW</td><td class="ex-note">Twice today</td></tr>
+<tr><td class="ex-name">Couch stretch</td><td class="ex-sets">2</td><td class="ex-reps">90s/side</td><td class="ex-tempo">hold</td><td class="ex-load">BW</td><td class="ex-note">Tendon prep</td></tr>
+</tbody></table></div>
+
+<div class="day"><div class="day-header"><span class="day-name">Fri</span><span class="day-focus">Light Lower Reintroduction</span><span class="day-tag">LOWER</span></div>
+<table class="exercises"><thead><tr><th>Exercise</th><th>Sets</th><th>Reps</th><th>Tempo</th><th>Load</th><th>Note</th></tr></thead>
+<tbody>
+<tr><td class="ex-name">Goblet squat</td><td class="ex-sets">3</td><td class="ex-reps">10</td><td class="ex-tempo">3-1-2</td><td class="ex-load">20 kg DB</td><td class="ex-note">Pain check</td></tr>
+<tr><td class="ex-name">Glute bridge (bilateral)</td><td class="ex-sets">3</td><td class="ex-reps">12</td><td class="ex-tempo">2-2-2</td><td class="ex-load">BW</td><td class="ex-note">Squeeze top</td></tr>
+<tr><td class="ex-name">Step-up (slow)</td><td class="ex-sets">3</td><td class="ex-reps">8/side</td><td class="ex-tempo">3-0-2</td><td class="ex-load">BW</td><td class="ex-note">Mid-shin box</td></tr>
+<tr><td class="ex-name">Single-leg balance</td><td class="ex-sets">3</td><td class="ex-reps">30s/side</td><td class="ex-tempo">hold</td><td class="ex-load">BW</td><td class="ex-note">Eyes closed last</td></tr>
+<tr><td class="ex-name">Leg extension (rehab)</td><td class="ex-sets">3</td><td class="ex-reps">12</td><td class="ex-tempo">3-2-3</td><td class="ex-load">22.5 kg</td><td class="ex-note">L leg first</td></tr>
+<tr><td class="ex-name">Tibialis raise</td><td class="ex-sets">3</td><td class="ex-reps">20</td><td class="ex-tempo">2-1-2</td><td class="ex-load">BW</td><td class="ex-note">Burn ok</td></tr>
+<tr><td class="ex-name">Standing calf raise</td><td class="ex-sets">3</td><td class="ex-reps">12/side</td><td class="ex-tempo">3-2-3</td><td class="ex-load">single leg BW</td><td class="ex-note">Equal both</td></tr>
+</tbody></table></div>
+
+<div class="day"><div class="day-header"><span class="day-name">Sat</span><span class="day-focus">Skill Work — Stationary Only</span><span class="day-tag bball">SKILL</span></div>
+<table class="exercises"><thead><tr><th>Exercise</th><th>Sets</th><th>Reps</th><th>Tempo</th><th>Load</th><th>Note</th></tr></thead>
+<tbody>
+<tr><td class="ex-name">Form shooting (close range)</td><td class="ex-sets">—</td><td class="ex-reps">15 min</td><td class="ex-tempo">controlled</td><td class="ex-load">BW</td><td class="ex-note">No jump</td></tr>
+<tr><td class="ex-name">Stationary ball-handling</td><td class="ex-sets">—</td><td class="ex-reps">15 min</td><td class="ex-tempo">work</td><td class="ex-load">BW</td><td class="ex-note">Two-ball drills</td></tr>
+<tr><td class="ex-name">Spot shooting</td><td class="ex-sets">—</td><td class="ex-reps">15 min</td><td class="ex-tempo">flow</td><td class="ex-load">BW</td><td class="ex-note">Feet set, no drive</td></tr>
+<tr><td class="ex-name">Free throws</td><td class="ex-sets">5</td><td class="ex-reps">20</td><td class="ex-tempo">routine</td><td class="ex-load">BW</td><td class="ex-note">Track %</td></tr>
+</tbody></table></div>
+
+<div class="day"><div class="day-header"><span class="day-name">Sun</span><span class="day-focus">Full Rest</span><span class="day-tag rest">REST</span></div></div>
+</div></div>
+
+<div class="week">
+<div class="week-header"><span class="week-num">W2</span><span class="week-name">Reintroduce Load</span><span class="week-progression">May 12 — May 18 // Add barbell back at 80%</span></div>
+<div class="days">
+
+<div class="day"><div class="day-header"><span class="day-name">Mon</span><span class="day-focus">Lower Bilateral — Strength</span><span class="day-tag">LOWER</span></div>
+<table class="exercises"><thead><tr><th>Exercise</th><th>Sets</th><th>Reps</th><th>Tempo</th><th>Load</th><th>Note</th></tr></thead>
+<tbody>
+<tr><td class="ex-name">Back squat</td><td class="ex-sets">4</td><td class="ex-reps">5</td><td class="ex-tempo">3-1-1</td><td class="ex-load">85 kg</td><td class="ex-note">2 RIR, slow eccentric</td></tr>
+<tr><td class="ex-name">Romanian deadlift</td><td class="ex-sets">3</td><td class="ex-reps">8</td><td class="ex-tempo">3-1-1</td><td class="ex-load">90 kg</td><td class="ex-note">Hip hinge focus</td></tr>
+<tr><td class="ex-name">Bulgarian split squat (DB)</td><td class="ex-sets">3</td><td class="ex-reps">8/side</td><td class="ex-tempo">3-1-2</td><td class="ex-load">15 kg/hand</td><td class="ex-note">Left leg first</td></tr>
+<tr><td class="ex-name">Copenhagen plank</td><td class="ex-sets">3</td><td class="ex-reps">15s/side</td><td class="ex-tempo">hold</td><td class="ex-load">BW</td><td class="ex-note">Knee on bench</td></tr>
+<tr><td class="ex-name">Single-leg calf raise</td><td class="ex-sets">3</td><td class="ex-reps">12/side</td><td class="ex-tempo">3-2-3</td><td class="ex-load">BW</td><td class="ex-note">Both equal</td></tr>
+<tr><td class="ex-name">Glute medius circuit</td><td class="ex-sets">2</td><td class="ex-reps">full</td><td class="ex-tempo">controlled</td><td class="ex-load">BW</td><td class="ex-note">After session</td></tr>
+</tbody></table></div>
+
+<div class="day"><div class="day-header"><span class="day-name">Tue</span><span class="day-focus">Upper Push + Core</span><span class="day-tag">UPPER</span></div>
+<table class="exercises"><thead><tr><th>Exercise</th><th>Sets</th><th>Reps</th><th>Tempo</th><th>Load</th><th>Note</th></tr></thead>
+<tbody>
+<tr><td class="ex-name">Bench press</td><td class="ex-sets">4</td><td class="ex-reps">6</td><td class="ex-tempo">2-1-1</td><td class="ex-load">75 kg</td><td class="ex-note">2 RIR</td></tr>
+<tr><td class="ex-name">Incline DB press</td><td class="ex-sets">3</td><td class="ex-reps">10</td><td class="ex-tempo">3-1-1</td><td class="ex-load">30 kg</td><td class="ex-note">Full stretch</td></tr>
+<tr><td class="ex-name">Standing DB shoulder press</td><td class="ex-sets">3</td><td class="ex-reps">10</td><td class="ex-tempo">2-1-2</td><td class="ex-load">20 kg</td><td class="ex-note">Brace</td></tr>
+<tr><td class="ex-name">Lateral raise</td><td class="ex-sets">3</td><td class="ex-reps">15</td><td class="ex-tempo">2-1-2</td><td class="ex-load">12 kg</td><td class="ex-note">Strict</td></tr>
+<tr><td class="ex-name">Dead bug</td><td class="ex-sets">3</td><td class="ex-reps">10/side</td><td class="ex-tempo">slow</td><td class="ex-load">BW</td><td class="ex-note">No rib flare</td></tr>
+<tr><td class="ex-name">Pallof press</td><td class="ex-sets">3</td><td class="ex-reps">12/side</td><td class="ex-tempo">3-2-3</td><td class="ex-load">light</td><td class="ex-note">Anti-rotate</td></tr>
+<tr><td class="ex-name">Side plank</td><td class="ex-sets">3</td><td class="ex-reps">30s/side</td><td class="ex-tempo">hold</td><td class="ex-load">BW</td><td class="ex-note">Stack hips</td></tr>
+</tbody></table></div>
+
+<div class="day"><div class="day-header"><span class="day-name">Wed</span><span class="day-focus">Active Recovery + Skill</span><span class="day-tag rehab">RECOVERY</span></div>
+<table class="exercises"><thead><tr><th>Exercise</th><th>Sets</th><th>Reps</th><th>Tempo</th><th>Load</th><th>Note</th></tr></thead>
+<tbody>
+<tr><td class="ex-name">Easy bike</td><td class="ex-sets">1</td><td class="ex-reps">30 min</td><td class="ex-tempo">Z2</td><td class="ex-load">RPE 4</td><td class="ex-note">No incline</td></tr>
+<tr><td class="ex-name">Glute medius circuit</td><td class="ex-sets">3</td><td class="ex-reps">full</td><td class="ex-tempo">controlled</td><td class="ex-load">BW</td><td class="ex-note">Daily</td></tr>
+<tr><td class="ex-name">Shooting + handle</td><td class="ex-sets">—</td><td class="ex-reps">45 min</td><td class="ex-tempo">flow</td><td class="ex-load">BW</td><td class="ex-note">No jumping</td></tr>
+<tr><td class="ex-name">Hip mobility flow</td><td class="ex-sets">1</td><td class="ex-reps">10 min</td><td class="ex-tempo">slow</td><td class="ex-load">BW</td><td class="ex-note">End of session</td></tr>
+</tbody></table></div>
+
+<div class="day"><div class="day-header"><span class="day-name">Thu</span><span class="day-focus">Lower Unilateral — Strength</span><span class="day-tag">LOWER</span></div>
+<table class="exercises"><thead><tr><th>Exercise</th><th>Sets</th><th>Reps</th><th>Tempo</th><th>Load</th><th>Note</th></tr></thead>
+<tbody>
+<tr><td class="ex-name">Conventional deadlift</td><td class="ex-sets">4</td><td class="ex-reps">5</td><td class="ex-tempo">2-1-1</td><td class="ex-load">100 kg</td><td class="ex-note">2 RIR</td></tr>
+<tr><td class="ex-name">Reverse lunge (DB)</td><td class="ex-sets">3</td><td class="ex-reps">8/side</td><td class="ex-tempo">3-1-2</td><td class="ex-load">17.5 kg/hand</td><td class="ex-note">Left first</td></tr>
+<tr><td class="ex-name">Single-leg hip thrust</td><td class="ex-sets">3</td><td class="ex-reps">10/side</td><td class="ex-tempo">2-2-2</td><td class="ex-load">30 kg</td><td class="ex-note">Squeeze top</td></tr>
+<tr><td class="ex-name">Standing single-leg calf</td><td class="ex-sets">3</td><td class="ex-reps">12/side</td><td class="ex-tempo">3-2-3</td><td class="ex-load">15 kg DB</td><td class="ex-note">Equal both</td></tr>
+<tr><td class="ex-name">Tibialis raise</td><td class="ex-sets">3</td><td class="ex-reps">20</td><td class="ex-tempo">2-1-2</td><td class="ex-load">BW</td><td class="ex-note">Achilles prep</td></tr>
+<tr><td class="ex-name">Leg extension (rehab)</td><td class="ex-sets">3</td><td class="ex-reps">12</td><td class="ex-tempo">3-2-3</td><td class="ex-load">25 kg</td><td class="ex-note">L tracks R</td></tr>
+</tbody></table></div>
+
+<div class="day"><div class="day-header"><span class="day-name">Fri</span><span class="day-focus">Upper Pull + Core</span><span class="day-tag">UPPER</span></div>
+<table class="exercises"><thead><tr><th>Exercise</th><th>Sets</th><th>Reps</th><th>Tempo</th><th>Load</th><th>Note</th></tr></thead>
+<tbody>
+<tr><td class="ex-name">Pull-ups</td><td class="ex-sets">4</td><td class="ex-reps">AMRAP</td><td class="ex-tempo">2-1-2</td><td class="ex-load">BW</td><td class="ex-note">Stop 1 RIR</td></tr>
+<tr><td class="ex-name">Single-arm DB row</td><td class="ex-sets">4</td><td class="ex-reps">10/side</td><td class="ex-tempo">2-1-2</td><td class="ex-load">32.5 kg</td><td class="ex-note">Brace hard</td></tr>
+<tr><td class="ex-name">Seated cable row</td><td class="ex-sets">3</td><td class="ex-reps">10</td><td class="ex-tempo">2-1-3</td><td class="ex-load">65 kg</td><td class="ex-note">Mid-back</td></tr>
+<tr><td class="ex-name">Face pull</td><td class="ex-sets">3</td><td class="ex-reps">15</td><td class="ex-tempo">2-1-2</td><td class="ex-load">moderate</td><td class="ex-note">Rear delt</td></tr>
+<tr><td class="ex-name">Hanging knee raise</td><td class="ex-sets">3</td><td class="ex-reps">10</td><td class="ex-tempo">2-1-2</td><td class="ex-load">BW</td><td class="ex-note">No swing</td></tr>
+<tr><td class="ex-name">Cable anti-rotation chop</td><td class="ex-sets">3</td><td class="ex-reps">10/side</td><td class="ex-tempo">2-1-2</td><td class="ex-load">moderate</td><td class="ex-note">Slow turn</td></tr>
+</tbody></table></div>
+
+<div class="day"><div class="day-header"><span class="day-name">Sat</span><span class="day-focus">Men's Practice — Capped</span><span class="day-tag bball">BBALL</span></div>
+<table class="exercises"><thead><tr><th>Exercise</th><th>Sets</th><th>Reps</th><th>Tempo</th><th>Load</th><th>Note</th></tr></thead>
+<tbody>
+<tr><td class="ex-name">Practice (men's team)</td><td class="ex-sets">1</td><td class="ex-reps">60 min hard cap</td><td class="ex-tempo">moderate</td><td class="ex-load">—</td><td class="ex-note">Walk away on time</td></tr>
+<tr><td class="ex-name">Glute medius circuit</td><td class="ex-sets">2</td><td class="ex-reps">full</td><td class="ex-tempo">controlled</td><td class="ex-load">BW</td><td class="ex-note">Post-session</td></tr>
+</tbody></table></div>
+
+<div class="day"><div class="day-header"><span class="day-name">Sun</span><span class="day-focus">Full Rest</span><span class="day-tag rest">REST</span></div></div>
+</div></div>
+
+<div class="week">
+<div class="week-header"><span class="week-num">W3</span><span class="week-name">Build the Base</span><span class="week-progression">May 19 — May 25 // +2.5 kg main lifts</span></div>
+<div class="days">
+
+<div class="day"><div class="day-header"><span class="day-name">Mon</span><span class="day-focus">Lower Bilateral — Strength</span><span class="day-tag">LOWER</span></div>
+<table class="exercises"><thead><tr><th>Exercise</th><th>Sets</th><th>Reps</th><th>Tempo</th><th>Load</th><th>Note</th></tr></thead>
+<tbody>
+<tr><td class="ex-name">Back squat</td><td class="ex-sets">4</td><td class="ex-reps">5</td><td class="ex-tempo">3-1-1</td><td class="ex-load">87.5 kg</td><td class="ex-note">+2.5 from W2</td></tr>
+<tr><td class="ex-name">Romanian deadlift</td><td class="ex-sets">3</td><td class="ex-reps">8</td><td class="ex-tempo">3-1-1</td><td class="ex-load">95 kg</td><td class="ex-note">Hinge purity</td></tr>
+<tr><td class="ex-name">Bulgarian split squat</td><td class="ex-sets">3</td><td class="ex-reps">8/side</td><td class="ex-tempo">3-1-2</td><td class="ex-load">17.5 kg/hand</td><td class="ex-note">Match L &amp; R</td></tr>
+<tr><td class="ex-name">Copenhagen plank</td><td class="ex-sets">3</td><td class="ex-reps">20s/side</td><td class="ex-tempo">hold</td><td class="ex-load">BW</td><td class="ex-note">Progress hold</td></tr>
+<tr><td class="ex-name">Single-leg calf raise</td><td class="ex-sets">3</td><td class="ex-reps">12/side</td><td class="ex-tempo">3-2-3</td><td class="ex-load">10 kg DB</td><td class="ex-note">Add load</td></tr>
+</tbody></table></div>
+
+<div class="day"><div class="day-header"><span class="day-name">Tue</span><span class="day-focus">Upper Push + Core</span><span class="day-tag">UPPER</span></div>
+<table class="exercises"><thead><tr><th>Exercise</th><th>Sets</th><th>Reps</th><th>Tempo</th><th>Load</th><th>Note</th></tr></thead>
+<tbody>
+<tr><td class="ex-name">Bench press</td><td class="ex-sets">4</td><td class="ex-reps">6</td><td class="ex-tempo">2-1-1</td><td class="ex-load">77.5 kg</td><td class="ex-note">+2.5</td></tr>
+<tr><td class="ex-name">Incline DB press</td><td class="ex-sets">3</td><td class="ex-reps">10</td><td class="ex-tempo">3-1-1</td><td class="ex-load">32.5 kg</td><td class="ex-note">Full ROM</td></tr>
+<tr><td class="ex-name">DB shoulder press</td><td class="ex-sets">3</td><td class="ex-reps">10</td><td class="ex-tempo">2-1-2</td><td class="ex-load">22.5 kg</td><td class="ex-note">Brace</td></tr>
+<tr><td class="ex-name">Lateral raise</td><td class="ex-sets">3</td><td class="ex-reps">15</td><td class="ex-tempo">2-1-2</td><td class="ex-load">12 kg</td><td class="ex-note">Strict</td></tr>
+<tr><td class="ex-name">Dead bug</td><td class="ex-sets">3</td><td class="ex-reps">12/side</td><td class="ex-tempo">slow</td><td class="ex-load">BW</td><td class="ex-note">+2 reps</td></tr>
+<tr><td class="ex-name">Pallof press</td><td class="ex-sets">3</td><td class="ex-reps">12/side</td><td class="ex-tempo">3-2-3</td><td class="ex-load">moderate</td><td class="ex-note">Anti-rotate</td></tr>
+</tbody></table></div>
+
+<div class="day"><div class="day-header"><span class="day-name">Wed</span><span class="day-focus">Active Recovery + Skill</span><span class="day-tag rehab">RECOVERY</span></div>
+<table class="exercises"><thead><tr><th>Exercise</th><th>Sets</th><th>Reps</th><th>Tempo</th><th>Load</th><th>Note</th></tr></thead>
+<tbody>
+<tr><td class="ex-name">Easy bike</td><td class="ex-sets">1</td><td class="ex-reps">35 min</td><td class="ex-tempo">Z2</td><td class="ex-load">RPE 4-5</td><td class="ex-note">+5 min</td></tr>
+<tr><td class="ex-name">Glute medius circuit</td><td class="ex-sets">3</td><td class="ex-reps">full</td><td class="ex-tempo">controlled</td><td class="ex-load">BW</td><td class="ex-note">Daily</td></tr>
+<tr><td class="ex-name">Shooting + handle</td><td class="ex-sets">—</td><td class="ex-reps">60 min</td><td class="ex-tempo">flow</td><td class="ex-load">BW</td><td class="ex-note">No jumping yet</td></tr>
+</tbody></table></div>
+
+<div class="day"><div class="day-header"><span class="day-name">Thu</span><span class="day-focus">Lower Unilateral — Strength</span><span class="day-tag">LOWER</span></div>
+<table class="exercises"><thead><tr><th>Exercise</th><th>Sets</th><th>Reps</th><th>Tempo</th><th>Load</th><th>Note</th></tr></thead>
+<tbody>
+<tr><td class="ex-name">Conventional deadlift</td><td class="ex-sets">4</td><td class="ex-reps">5</td><td class="ex-tempo">2-1-1</td><td class="ex-load">102.5 kg</td><td class="ex-note">+2.5 kg</td></tr>
+<tr><td class="ex-name">Reverse lunge (DB)</td><td class="ex-sets">3</td><td class="ex-reps">8/side</td><td class="ex-tempo">3-1-2</td><td class="ex-load">20 kg/hand</td><td class="ex-note">+2.5</td></tr>
+<tr><td class="ex-name">Single-leg hip thrust</td><td class="ex-sets">3</td><td class="ex-reps">10/side</td><td class="ex-tempo">2-2-2</td><td class="ex-load">35 kg</td><td class="ex-note">+5 kg</td></tr>
+<tr><td class="ex-name">Standing single-leg calf</td><td class="ex-sets">3</td><td class="ex-reps">12/side</td><td class="ex-tempo">3-2-3</td><td class="ex-load">17.5 kg DB</td><td class="ex-note">+2.5</td></tr>
+<tr><td class="ex-name">Leg extension (rehab)</td><td class="ex-sets">3</td><td class="ex-reps">12</td><td class="ex-tempo">3-2-3</td><td class="ex-load">27.5 kg</td><td class="ex-note">L = R goal</td></tr>
+</tbody></table></div>
+
+<div class="day"><div class="day-header"><span class="day-name">Fri</span><span class="day-focus">Upper Pull + Core</span><span class="day-tag">UPPER</span></div>
+<table class="exercises"><thead><tr><th>Exercise</th><th>Sets</th><th>Reps</th><th>Tempo</th><th>Load</th><th>Note</th></tr></thead>
+<tbody>
+<tr><td class="ex-name">Pull-ups (weighted)</td><td class="ex-sets">4</td><td class="ex-reps">6</td><td class="ex-tempo">2-1-2</td><td class="ex-load">+5 kg</td><td class="ex-note">Add load</td></tr>
+<tr><td class="ex-name">Single-arm DB row</td><td class="ex-sets">4</td><td class="ex-reps">10/side</td><td class="ex-tempo">2-1-2</td><td class="ex-load">35 kg</td><td class="ex-note">+2.5</td></tr>
+<tr><td class="ex-name">Seated cable row</td><td class="ex-sets">3</td><td class="ex-reps">10</td><td class="ex-tempo">2-1-3</td><td class="ex-load">70 kg</td><td class="ex-note">+5</td></tr>
+<tr><td class="ex-name">Face pull</td><td class="ex-sets">3</td><td class="ex-reps">15</td><td class="ex-tempo">2-1-2</td><td class="ex-load">moderate</td><td class="ex-note">Hold 1s</td></tr>
+<tr><td class="ex-name">Hanging knee raise</td><td class="ex-sets">3</td><td class="ex-reps">12</td><td class="ex-tempo">2-1-2</td><td class="ex-load">BW</td><td class="ex-note">+2 reps</td></tr>
+</tbody></table></div>
+
+<div class="day"><div class="day-header"><span class="day-name">Sat</span><span class="day-focus">Men's Practice — Capped</span><span class="day-tag bball">BBALL</span></div>
+<table class="exercises"><thead><tr><th>Exercise</th><th>Sets</th><th>Reps</th><th>Tempo</th><th>Load</th><th>Note</th></tr></thead>
+<tbody>
+<tr><td class="ex-name">Practice (men's team)</td><td class="ex-sets">1</td><td class="ex-reps">75 min hard cap</td><td class="ex-tempo">moderate</td><td class="ex-load">—</td><td class="ex-note">Stop on time</td></tr>
+<tr><td class="ex-name">Glute medius circuit</td><td class="ex-sets">2</td><td class="ex-reps">full</td><td class="ex-tempo">controlled</td><td class="ex-load">BW</td><td class="ex-note">Post-session</td></tr>
+</tbody></table></div>
+
+<div class="day"><div class="day-header"><span class="day-name">Sun</span><span class="day-focus">Full Rest</span><span class="day-tag rest">REST</span></div></div>
+</div></div>
+
+<div class="week">
+<div class="week-header"><span class="week-num">W4</span><span class="week-name">Test &amp; Confirm</span><span class="week-progression">May 26 — Jun 1 // +2.5 kg, jump retest Wed</span></div>
+<div class="days">
+
+<div class="day"><div class="day-header"><span class="day-name">Mon</span><span class="day-focus">Lower Bilateral — Top Set</span><span class="day-tag">LOWER</span></div>
+<table class="exercises"><thead><tr><th>Exercise</th><th>Sets</th><th>Reps</th><th>Tempo</th><th>Load</th><th>Note</th></tr></thead>
+<tbody>
+<tr><td class="ex-name">Back squat</td><td class="ex-sets">4</td><td class="ex-reps">5</td><td class="ex-tempo">3-1-1</td><td class="ex-load">90 kg</td><td class="ex-note">+2.5</td></tr>
+<tr><td class="ex-name">Romanian deadlift</td><td class="ex-sets">3</td><td class="ex-reps">8</td><td class="ex-tempo">3-1-1</td><td class="ex-load">100 kg</td><td class="ex-note">Hinge form</td></tr>
+<tr><td class="ex-name">Bulgarian split squat</td><td class="ex-sets">3</td><td class="ex-reps">8/side</td><td class="ex-tempo">3-1-2</td><td class="ex-load">20 kg/hand</td><td class="ex-note">L &amp; R equal</td></tr>
+<tr><td class="ex-name">Copenhagen plank</td><td class="ex-sets">3</td><td class="ex-reps">25s/side</td><td class="ex-tempo">hold</td><td class="ex-load">BW</td><td class="ex-note">Progress</td></tr>
+<tr><td class="ex-name">Single-leg calf raise</td><td class="ex-sets">3</td><td class="ex-reps">12/side</td><td class="ex-tempo">3-2-3</td><td class="ex-load">12.5 kg DB</td><td class="ex-note">Strict</td></tr>
+</tbody></table></div>
+
+<div class="day"><div class="day-header"><span class="day-name">Tue</span><span class="day-focus">Upper Push + Core</span><span class="day-tag">UPPER</span></div>
+<table class="exercises"><thead><tr><th>Exercise</th><th>Sets</th><th>Reps</th><th>Tempo</th><th>Load</th><th>Note</th></tr></thead>
+<tbody>
+<tr><td class="ex-name">Bench press</td><td class="ex-sets">4</td><td class="ex-reps">6</td><td class="ex-tempo">2-1-1</td><td class="ex-load">80 kg</td><td class="ex-note">+2.5</td></tr>
+<tr><td class="ex-name">Incline DB press</td><td class="ex-sets">3</td><td class="ex-reps">10</td><td class="ex-tempo">3-1-1</td><td class="ex-load">35 kg</td><td class="ex-note">+2.5</td></tr>
+<tr><td class="ex-name">DB shoulder press</td><td class="ex-sets">3</td><td class="ex-reps">10</td><td class="ex-tempo">2-1-2</td><td class="ex-load">22.5 kg</td><td class="ex-note">Hold</td></tr>
+<tr><td class="ex-name">Dead bug</td><td class="ex-sets">3</td><td class="ex-reps">12/side</td><td class="ex-tempo">slow</td><td class="ex-load">BW</td><td class="ex-note">Strict</td></tr>
+<tr><td class="ex-name">Pallof press</td><td class="ex-sets">3</td><td class="ex-reps">12/side</td><td class="ex-tempo">3-2-3</td><td class="ex-load">heavier</td><td class="ex-note">Progress</td></tr>
+</tbody></table></div>
+
+<div class="day"><div class="day-header"><span class="day-name">Wed</span><span class="day-focus">Recovery + Vertical Test</span><span class="day-tag rehab">TEST</span></div>
+<table class="exercises"><thead><tr><th>Exercise</th><th>Sets</th><th>Reps</th><th>Tempo</th><th>Load</th><th>Note</th></tr></thead>
+<tbody>
+<tr><td class="ex-name">Vertical jump test (2-foot)</td><td class="ex-sets">5</td><td class="ex-reps">1</td><td class="ex-tempo">max</td><td class="ex-load">BW</td><td class="ex-note">Best of 5, log it</td></tr>
+<tr><td class="ex-name">Single-leg jump test L</td><td class="ex-sets">3</td><td class="ex-reps">1</td><td class="ex-tempo">max</td><td class="ex-load">BW</td><td class="ex-note">Compare baseline</td></tr>
+<tr><td class="ex-name">Single-leg jump test R</td><td class="ex-sets">3</td><td class="ex-reps">1</td><td class="ex-tempo">max</td><td class="ex-load">BW</td><td class="ex-note">L/R diff &lt; 12%</td></tr>
+<tr><td class="ex-name">Easy bike</td><td class="ex-sets">1</td><td class="ex-reps">25 min</td><td class="ex-tempo">Z2</td><td class="ex-load">low</td><td class="ex-note">After tests</td></tr>
+<tr><td class="ex-name">Glute medius circuit</td><td class="ex-sets">2</td><td class="ex-reps">full</td><td class="ex-tempo">controlled</td><td class="ex-load">BW</td><td class="ex-note">Cooldown</td></tr>
+</tbody></table></div>
+
+<div class="day"><div class="day-header"><span class="day-name">Thu</span><span class="day-focus">Lower Unilateral — Top Set</span><span class="day-tag">LOWER</span></div>
+<table class="exercises"><thead><tr><th>Exercise</th><th>Sets</th><th>Reps</th><th>Tempo</th><th>Load</th><th>Note</th></tr></thead>
+<tbody>
+<tr><td class="ex-name">Conventional deadlift</td><td class="ex-sets">4</td><td class="ex-reps">5</td><td class="ex-tempo">2-1-1</td><td class="ex-load">105 kg</td><td class="ex-note">+2.5</td></tr>
+<tr><td class="ex-name">Reverse lunge</td><td class="ex-sets">3</td><td class="ex-reps">8/side</td><td class="ex-tempo">3-1-2</td><td class="ex-load">22.5 kg/hand</td><td class="ex-note">+2.5</td></tr>
+<tr><td class="ex-name">Single-leg hip thrust</td><td class="ex-sets">3</td><td class="ex-reps">10/side</td><td class="ex-tempo">2-2-2</td><td class="ex-load">40 kg</td><td class="ex-note">+5</td></tr>
+<tr><td class="ex-name">Single-leg calf</td><td class="ex-sets">3</td><td class="ex-reps">12/side</td><td class="ex-tempo">3-2-3</td><td class="ex-load">20 kg DB</td><td class="ex-note">+2.5</td></tr>
+<tr><td class="ex-name">Leg extension</td><td class="ex-sets">3</td><td class="ex-reps">12</td><td class="ex-tempo">3-2-3</td><td class="ex-load">30 kg</td><td class="ex-note">L hits R</td></tr>
+</tbody></table></div>
+
+<div class="day"><div class="day-header"><span class="day-name">Fri</span><span class="day-focus">Upper Pull + Core</span><span class="day-tag">UPPER</span></div>
+<table class="exercises"><thead><tr><th>Exercise</th><th>Sets</th><th>Reps</th><th>Tempo</th><th>Load</th><th>Note</th></tr></thead>
+<tbody>
+<tr><td class="ex-name">Pull-ups (weighted)</td><td class="ex-sets">4</td><td class="ex-reps">6</td><td class="ex-tempo">2-1-2</td><td class="ex-load">+7.5 kg</td><td class="ex-note">+2.5</td></tr>
+<tr><td class="ex-name">Single-arm DB row</td><td class="ex-sets">4</td><td class="ex-reps">10/side</td><td class="ex-tempo">2-1-2</td><td class="ex-load">37.5 kg</td><td class="ex-note">+2.5</td></tr>
+<tr><td class="ex-name">Seated cable row</td><td class="ex-sets">3</td><td class="ex-reps">10</td><td class="ex-tempo">2-1-3</td><td class="ex-load">72.5 kg</td><td class="ex-note">+2.5</td></tr>
+<tr><td class="ex-name">Face pull</td><td class="ex-sets">3</td><td class="ex-reps">15</td><td class="ex-tempo">2-1-2</td><td class="ex-load">moderate</td><td class="ex-note">2s hold</td></tr>
+<tr><td class="ex-name">Hanging leg raise</td><td class="ex-sets">3</td><td class="ex-reps">10</td><td class="ex-tempo">2-1-2</td><td class="ex-load">BW</td><td class="ex-note">Progress</td></tr>
+</tbody></table></div>
+
+<div class="day"><div class="day-header"><span class="day-name">Sat</span><span class="day-focus">Men's Practice + U18 Optional</span><span class="day-tag bball">BBALL</span></div>
+<table class="exercises"><thead><tr><th>Exercise</th><th>Sets</th><th>Reps</th><th>Tempo</th><th>Load</th><th>Note</th></tr></thead>
+<tbody>
+<tr><td class="ex-name">Men's practice</td><td class="ex-sets">1</td><td class="ex-reps">90 min cap</td><td class="ex-tempo">moderate</td><td class="ex-load">—</td><td class="ex-note">Pain check</td></tr>
+<tr><td class="ex-name">Glute medius circuit</td><td class="ex-sets">2</td><td class="ex-reps">full</td><td class="ex-tempo">controlled</td><td class="ex-load">BW</td><td class="ex-note">After</td></tr>
+</tbody></table></div>
+
+<div class="day"><div class="day-header"><span class="day-name">Sun</span><span class="day-focus">Full Rest</span><span class="day-tag rest">REST</span></div></div>
+</div></div>
+
+<div class="nutrition-block">
+<div class="nutrition-title">Phase 1 Fuel</div>
+<div class="nutrition-sub">// Slight Deficit · Tendon Repair Priority · No Fasting</div>
+<div class="macro-grid">
+<div class="macro"><div class="macro-label">Calories</div><div class="macro-value">2650<span class="macro-unit">kcal</span></div></div>
+<div class="macro"><div class="macro-label">Protein</div><div class="macro-value">200<span class="macro-unit">g</span></div></div>
+<div class="macro"><div class="macro-label">Carbs</div><div class="macro-value">280<span class="macro-unit">g</span></div></div>
+<div class="macro"><div class="macro-label">Fat</div><div class="macro-value">75<span class="macro-unit">g</span></div></div>
+</div>
+<ul class="nutrition-rules">
+<li><strong style="color:var(--blood)">DROP 18:6 FASTING TODAY.</strong> 4–5 meals/day, 40–50g protein each. Tendon collagen synthesis needs steady amino-acid flow.</li>
+<li><strong style="color:var(--blood)">TENDON STACK:</strong> 15–20g hydrolyzed collagen + 50mg vitamin C, 30–60 min before every rehab session and lower lift.</li>
+<li><strong style="color:var(--blood)">CARB TIMING:</strong> 60–80g carbs in pre-workout meal; 80–100g post-workout with 40g protein.</li>
+<li><strong style="color:var(--blood)">REST DAYS:</strong> drop carbs to ~220g, keep protein at 200g, fat ~80g. Total ~2400 kcal.</li>
+<li><strong style="color:var(--blood)">WEEKEND RULE:</strong> max one meal at maintenance (2800 kcal), Saturday only. No 4000-kcal blowouts.</li>
+<li><strong style="color:var(--blood)">HYDRATION:</strong> 3.5L water/day minimum. Add 1g sodium pre-training.</li>
+<li><strong style="color:var(--blood)">SLEEP:</strong> 8h floor, 9h ideal. Tendons repair here. Non-negotiable.</li>
+</ul>
+</div>
+
+<div class="milestone">
+<div class="milestone-title">Week 4 Checkpoint</div>
+<div class="milestone-grid">
+<div class="milestone-item"><span class="milestone-marker"></span><span class="milestone-text">Glute medius pain <strong>0/10</strong> in all training</span></div>
+<div class="milestone-item"><span class="milestone-marker"></span><span class="milestone-text">Back squat <strong>4×5 @ 90 kg</strong> clean form</span></div>
+<div class="milestone-item"><span class="milestone-marker"></span><span class="milestone-text">Deadlift <strong>4×5 @ 105 kg</strong> clean</span></div>
+<div class="milestone-item"><span class="milestone-marker"></span><span class="milestone-text">Bodyweight <strong>92–93 kg</strong> AM</span></div>
+<div class="milestone-item"><span class="milestone-marker"></span><span class="milestone-text">Leg extension L vs R within <strong>10%</strong></span></div>
+<div class="milestone-item"><span class="milestone-marker"></span><span class="milestone-text">Single-leg jump asymmetry <strong>&lt; 12%</strong></span></div>
+<div class="milestone-item"><span class="milestone-marker"></span><span class="milestone-text">Copenhagen plank <strong>25s/side</strong></span></div>
+<div class="milestone-item"><span class="milestone-marker"></span><span class="milestone-text">90-min practice with <strong>no flare-up</strong></span></div>
+</div>
+</div>
+
+</div>
+</section>
+
+<section class="phase">
+<div class="container">
+<div class="phase-banner">
+<div class="phase-number">02</div>
+<div class="phase-titleblock">
+<div class="phase-tag">// PHASE TWO / WEEKS 05–08</div>
+<h2 class="phase-title">Strength<br>&amp; Reactivation</h2>
+<div class="phase-dates">June 2 → June 29</div>
+</div>
+</div>
+<p class="phase-thesis">Foundation is in. Now we get <strong>heavier</strong> and we put the spring back in the system. Strength shifts to 3–5 rep ranges. Plyometrics return at low volume — landing mechanics first, height second. One basketball practice/week becomes two. Hip hinges go heavier than knee-dominant work because the quad tendon still needs respect. By the end of this phase, the squat 1RM should be approaching 130 kg.</p>
+<div class="callout">
+<div class="callout-title">// Plyo Reintroduction Protocol</div>
+<div class="callout-text">Plyometrics return ONLY if Week 4 checkpoint is hit. Start with extensive (low intensity, high quality) before intensive. Pogos and low boxes weeks 5–6. Approach jumps and depth drops weeks 7–8. Volume cap: 80 ground contacts/session, never two plyo days back-to-back.</div>
+</div>
+
+<div class="week">
+<div class="week-header"><span class="week-num">W5</span><span class="week-name">Plyo Re-Entry (Deload Lift)</span><span class="week-progression">Jun 2 — Jun 8 // -10% load, plyos in</span></div>
+<div class="days">
+
+<div class="day"><div class="day-header"><span class="day-name">Mon</span><span class="day-focus">Plyo (Extensive) + Lower Strength</span><span class="day-tag">POWER</span></div>
+<table class="exercises"><thead><tr><th>Exercise</th><th>Sets</th><th>Reps</th><th>Tempo</th><th>Load</th><th>Note</th></tr></thead>
+<tbody>
+<tr class="section-header"><td colspan="6">A. Plyometric Block (40 contacts)</td></tr>
+<tr><td class="ex-name">Pogo jumps (2-foot)</td><td class="ex-sets">3</td><td class="ex-reps">8</td><td class="ex-tempo">stiff ankle</td><td class="ex-load">BW</td><td class="ex-note">Min ground time</td></tr>
+<tr><td class="ex-name">Low box jump (30cm)</td><td class="ex-sets">4</td><td class="ex-reps">4</td><td class="ex-tempo">stick land</td><td class="ex-load">BW</td><td class="ex-note">Land soft, hold 2s</td></tr>
+<tr class="section-header"><td colspan="6">B. Strength Block</td></tr>
+<tr><td class="ex-name">Back squat</td><td class="ex-sets">4</td><td class="ex-reps">5</td><td class="ex-tempo">2-1-1</td><td class="ex-load">85 kg</td><td class="ex-note">Deload to absorb plyos</td></tr>
+<tr><td class="ex-name">Romanian deadlift</td><td class="ex-sets">3</td><td class="ex-reps">6</td><td class="ex-tempo">3-1-1</td><td class="ex-load">100 kg</td><td class="ex-note">Drop reps add load</td></tr>
+<tr><td class="ex-name">Bulgarian split squat</td><td class="ex-sets">3</td><td class="ex-reps">8/side</td><td class="ex-tempo">3-1-2</td><td class="ex-load">22.5 kg/hand</td><td class="ex-note">L = R</td></tr>
+<tr><td class="ex-name">Copenhagen plank</td><td class="ex-sets">3</td><td class="ex-reps">30s/side</td><td class="ex-tempo">hold</td><td class="ex-load">BW</td><td class="ex-note">Progress</td></tr>
+</tbody></table></div>
+
+<div class="day"><div class="day-header"><span class="day-name">Tue</span><span class="day-focus">Upper Push + Core</span><span class="day-tag">UPPER</span></div>
+<table class="exercises"><thead><tr><th>Exercise</th><th>Sets</th><th>Reps</th><th>Tempo</th><th>Load</th><th>Note</th></tr></thead>
+<tbody>
+<tr><td class="ex-name">Bench press</td><td class="ex-sets">4</td><td class="ex-reps">5</td><td class="ex-tempo">2-1-1</td><td class="ex-load">82.5 kg</td><td class="ex-note">Drop reps, +load</td></tr>
+<tr><td class="ex-name">Incline DB press</td><td class="ex-sets">3</td><td class="ex-reps">8</td><td class="ex-tempo">3-1-1</td><td class="ex-load">37.5 kg</td><td class="ex-note">Heavier</td></tr>
+<tr><td class="ex-name">Standing OHP (barbell)</td><td class="ex-sets">3</td><td class="ex-reps">6</td><td class="ex-tempo">2-1-2</td><td class="ex-load">45 kg</td><td class="ex-note">Replace DB</td></tr>
+<tr><td class="ex-name">Lateral raise</td><td class="ex-sets">3</td><td class="ex-reps">12</td><td class="ex-tempo">2-1-2</td><td class="ex-load">14 kg</td><td class="ex-note">+2 kg</td></tr>
+<tr><td class="ex-name">Hanging leg raise</td><td class="ex-sets">3</td><td class="ex-reps">10</td><td class="ex-tempo">slow</td><td class="ex-load">BW</td><td class="ex-note">Strict</td></tr>
+<tr><td class="ex-name">Pallof iso hold</td><td class="ex-sets">3</td><td class="ex-reps">20s/side</td><td class="ex-tempo">hold</td><td class="ex-load">heavier</td><td class="ex-note">Iso variant</td></tr>
+</tbody></table></div>
+
+<div class="day"><div class="day-header"><span class="day-name">Wed</span><span class="day-focus">Skill + Court Movement</span><span class="day-tag bball">SKILL</span></div>
+<table class="exercises"><thead><tr><th>Exercise</th><th>Sets</th><th>Reps</th><th>Tempo</th><th>Load</th><th>Note</th></tr></thead>
+<tbody>
+<tr><td class="ex-name">Defensive slides (light)</td><td class="ex-sets">4</td><td class="ex-reps">15s</td><td class="ex-tempo">controlled</td><td class="ex-load">BW</td><td class="ex-note">Reintro slides</td></tr>
+<tr><td class="ex-name">Form shooting + spot</td><td class="ex-sets">—</td><td class="ex-reps">30 min</td><td class="ex-tempo">flow</td><td class="ex-load">BW</td><td class="ex-note">Add small jumps</td></tr>
+<tr><td class="ex-name">1v0 finishing</td><td class="ex-sets">—</td><td class="ex-reps">20 min</td><td class="ex-tempo">moderate</td><td class="ex-load">BW</td><td class="ex-note">Layups, no contact</td></tr>
+<tr><td class="ex-name">Glute medius circuit</td><td class="ex-sets">2</td><td class="ex-reps">full</td><td class="ex-tempo">controlled</td><td class="ex-load">BW</td><td class="ex-note">Cooldown</td></tr>
+</tbody></table></div>
+
+<div class="day"><div class="day-header"><span class="day-name">Thu</span><span class="day-focus">Plyo (Unilateral) + Lower Pull</span><span class="day-tag">POWER</span></div>
+<table class="exercises"><thead><tr><th>Exercise</th><th>Sets</th><th>Reps</th><th>Tempo</th><th>Load</th><th>Note</th></tr></thead>
+<tbody>
+<tr class="section-header"><td colspan="6">A. Unilateral Plyo Block</td></tr>
+<tr><td class="ex-name">Single-leg pogo (L)</td><td class="ex-sets">3</td><td class="ex-reps">6</td><td class="ex-tempo">stiff</td><td class="ex-load">BW</td><td class="ex-note">L FIRST always</td></tr>
+<tr><td class="ex-name">Single-leg pogo (R)</td><td class="ex-sets">3</td><td class="ex-reps">6</td><td class="ex-tempo">stiff</td><td class="ex-load">BW</td><td class="ex-note">Match L count</td></tr>
+<tr><td class="ex-name">Skater bound</td><td class="ex-sets">3</td><td class="ex-reps">5/side</td><td class="ex-tempo">stick land</td><td class="ex-load">BW</td><td class="ex-note">Hold 2s</td></tr>
+<tr class="section-header"><td colspan="6">B. Strength</td></tr>
+<tr><td class="ex-name">Conventional deadlift</td><td class="ex-sets">4</td><td class="ex-reps">3</td><td class="ex-tempo">2-1-1</td><td class="ex-load">110 kg</td><td class="ex-note">Heavier, low reps</td></tr>
+<tr><td class="ex-name">Reverse lunge</td><td class="ex-sets">3</td><td class="ex-reps">6/side</td><td class="ex-tempo">3-1-2</td><td class="ex-load">25 kg/hand</td><td class="ex-note">Heavier</td></tr>
+<tr><td class="ex-name">Single-leg hip thrust</td><td class="ex-sets">3</td><td class="ex-reps">8/side</td><td class="ex-tempo">2-2-2</td><td class="ex-load">45 kg</td><td class="ex-note">+5</td></tr>
+<tr><td class="ex-name">Standing single-leg calf</td><td class="ex-sets">4</td><td class="ex-reps">10/side</td><td class="ex-tempo">3-2-3</td><td class="ex-load">22.5 kg DB</td><td class="ex-note">Achilles loading</td></tr>
+</tbody></table></div>
+
+<div class="day"><div class="day-header"><span class="day-name">Fri</span><span class="day-focus">Upper Pull + Core</span><span class="day-tag">UPPER</span></div>
+<table class="exercises"><thead><tr><th>Exercise</th><th>Sets</th><th>Reps</th><th>Tempo</th><th>Load</th><th>Note</th></tr></thead>
+<tbody>
+<tr><td class="ex-name">Pull-ups (weighted)</td><td class="ex-sets">5</td><td class="ex-reps">5</td><td class="ex-tempo">2-1-2</td><td class="ex-load">+10 kg</td><td class="ex-note">+2.5</td></tr>
+<tr><td class="ex-name">Barbell row</td><td class="ex-sets">4</td><td class="ex-reps">8</td><td class="ex-tempo">2-1-2</td><td class="ex-load">75 kg</td><td class="ex-note">Replace DB row</td></tr>
+<tr><td class="ex-name">Cable row</td><td class="ex-sets">3</td><td class="ex-reps">10</td><td class="ex-tempo">2-1-3</td><td class="ex-load">75 kg</td><td class="ex-note">+2.5</td></tr>
+<tr><td class="ex-name">Face pull</td><td class="ex-sets">3</td><td class="ex-reps">15</td><td class="ex-tempo">2-1-2</td><td class="ex-load">moderate+</td><td class="ex-note">2s hold</td></tr>
+<tr><td class="ex-name">Hanging windshield wiper</td><td class="ex-sets">3</td><td class="ex-reps">8/side</td><td class="ex-tempo">slow</td><td class="ex-load">BW</td><td class="ex-note">Progress</td></tr>
+</tbody></table></div>
+
+<div class="day"><div class="day-header"><span class="day-name">Sat</span><span class="day-focus">Men's Practice — Full</span><span class="day-tag bball">BBALL</span></div>
+<table class="exercises"><thead><tr><th>Exercise</th><th>Sets</th><th>Reps</th><th>Tempo</th><th>Load</th><th>Note</th></tr></thead>
+<tbody>
+<tr><td class="ex-name">Practice (full session)</td><td class="ex-sets">1</td><td class="ex-reps">90 min</td><td class="ex-tempo">match</td><td class="ex-load">—</td><td class="ex-note">First full practice</td></tr>
+<tr><td class="ex-name">Glute medius circuit</td><td class="ex-sets">2</td><td class="ex-reps">full</td><td class="ex-tempo">controlled</td><td class="ex-load">BW</td><td class="ex-note">Post-game ritual</td></tr>
+</tbody></table></div>
+
+<div class="day"><div class="day-header"><span class="day-name">Sun</span><span class="day-focus">Full Rest</span><span class="day-tag rest">REST</span></div></div>
+</div></div>
+
+<div class="week">
+<div class="week-header"><span class="week-num">W6</span><span class="week-name">Heavy Strength + Plyo Vol Up</span><span class="week-progression">Jun 9 — Jun 15 // +5 kg main, 60 contacts</span></div>
+<div class="days">
+
+<div class="day"><div class="day-header"><span class="day-name">Mon</span><span class="day-focus">Plyo + Lower Strength</span><span class="day-tag">POWER</span></div>
+<table class="exercises"><thead><tr><th>Exercise</th><th>Sets</th><th>Reps</th><th>Tempo</th><th>Load</th><th>Note</th></tr></thead>
+<tbody>
+<tr><td class="ex-name">Pogo jumps</td><td class="ex-sets">4</td><td class="ex-reps">8</td><td class="ex-tempo">stiff</td><td class="ex-load">BW</td><td class="ex-note">+1 set</td></tr>
+<tr><td class="ex-name">Box jump (40cm)</td><td class="ex-sets">5</td><td class="ex-reps">3</td><td class="ex-tempo">explosive</td><td class="ex-load">BW</td><td class="ex-note">Higher box</td></tr>
+<tr><td class="ex-name">Back squat</td><td class="ex-sets">5</td><td class="ex-reps">3</td><td class="ex-tempo">2-1-1</td><td class="ex-load">100 kg</td><td class="ex-note">Heavy 3s</td></tr>
+<tr><td class="ex-name">Romanian deadlift</td><td class="ex-sets">3</td><td class="ex-reps">6</td><td class="ex-tempo">3-1-1</td><td class="ex-load">105 kg</td><td class="ex-note">+5</td></tr>
+<tr><td class="ex-name">Bulgarian split squat</td><td class="ex-sets">3</td><td class="ex-reps">6/side</td><td class="ex-tempo">3-1-2</td><td class="ex-load">25 kg/hand</td><td class="ex-note">Drop reps add load</td></tr>
+<tr><td class="ex-name">Copenhagen plank</td><td class="ex-sets">3</td><td class="ex-reps">35s/side</td><td class="ex-tempo">hold</td><td class="ex-load">BW</td><td class="ex-note">Progress</td></tr>
+</tbody></table></div>
+
+<div class="day"><div class="day-header"><span class="day-name">Tue</span><span class="day-focus">Upper Push + Core</span><span class="day-tag">UPPER</span></div>
+<table class="exercises"><thead><tr><th>Exercise</th><th>Sets</th><th>Reps</th><th>Tempo</th><th>Load</th><th>Note</th></tr></thead>
+<tbody>
+<tr><td class="ex-name">Bench press</td><td class="ex-sets">5</td><td class="ex-reps">5</td><td class="ex-tempo">2-1-1</td><td class="ex-load">85 kg</td><td class="ex-note">+2.5</td></tr>
+<tr><td class="ex-name">Incline DB press</td><td class="ex-sets">3</td><td class="ex-reps">8</td><td class="ex-tempo">3-1-1</td><td class="ex-load">40 kg</td><td class="ex-note">+2.5</td></tr>
+<tr><td class="ex-name">Standing OHP</td><td class="ex-sets">4</td><td class="ex-reps">5</td><td class="ex-tempo">2-1-2</td><td class="ex-load">50 kg</td><td class="ex-note">+5</td></tr>
+<tr><td class="ex-name">Lateral raise</td><td class="ex-sets">3</td><td class="ex-reps">12</td><td class="ex-tempo">2-1-2</td><td class="ex-load">14 kg</td><td class="ex-note">Hold</td></tr>
+<tr><td class="ex-name">Hanging leg raise</td><td class="ex-sets">3</td><td class="ex-reps">12</td><td class="ex-tempo">slow</td><td class="ex-load">BW</td><td class="ex-note">+2 reps</td></tr>
+</tbody></table></div>
+
+<div class="day"><div class="day-header"><span class="day-name">Wed</span><span class="day-focus">Skill + Court Movement</span><span class="day-tag bball">SKILL</span></div>
+<table class="exercises"><thead><tr><th>Exercise</th><th>Sets</th><th>Reps</th><th>Tempo</th><th>Load</th><th>Note</th></tr></thead>
+<tbody>
+<tr><td class="ex-name">Defensive slides</td><td class="ex-sets">5</td><td class="ex-reps">20s</td><td class="ex-tempo">moderate</td><td class="ex-load">BW</td><td class="ex-note">+5s, +1 set</td></tr>
+<tr><td class="ex-name">Form shooting</td><td class="ex-sets">—</td><td class="ex-reps">30 min</td><td class="ex-tempo">flow</td><td class="ex-load">BW</td><td class="ex-note">Pull-ups, fadeaways</td></tr>
+<tr><td class="ex-name">1v0/2v0 finishing</td><td class="ex-sets">—</td><td class="ex-reps">25 min</td><td class="ex-tempo">moderate</td><td class="ex-load">BW</td><td class="ex-note">Change of pace</td></tr>
+<tr><td class="ex-name">Glute medius circuit</td><td class="ex-sets">2</td><td class="ex-reps">full</td><td class="ex-tempo">controlled</td><td class="ex-load">BW</td><td class="ex-note">Cooldown</td></tr>
+</tbody></table></div>
+
+<div class="day"><div class="day-header"><span class="day-name">Thu</span><span class="day-focus">Plyo Unilateral + Posterior Chain</span><span class="day-tag">POWER</span></div>
+<table class="exercises"><thead><tr><th>Exercise</th><th>Sets</th><th>Reps</th><th>Tempo</th><th>Load</th><th>Note</th></tr></thead>
+<tbody>
+<tr><td class="ex-name">Single-leg pogo (L then R)</td><td class="ex-sets">3</td><td class="ex-reps">8/side</td><td class="ex-tempo">stiff</td><td class="ex-load">BW</td><td class="ex-note">L drives</td></tr>
+<tr><td class="ex-name">Skater bound</td><td class="ex-sets">4</td><td class="ex-reps">5/side</td><td class="ex-tempo">stick</td><td class="ex-load">BW</td><td class="ex-note">+1 set</td></tr>
+<tr><td class="ex-name">Broad jump (stick)</td><td class="ex-sets">4</td><td class="ex-reps">3</td><td class="ex-tempo">explosive</td><td class="ex-load">BW</td><td class="ex-note">Hold landing</td></tr>
+<tr><td class="ex-name">Conventional deadlift</td><td class="ex-sets">5</td><td class="ex-reps">3</td><td class="ex-tempo">2-1-1</td><td class="ex-load">115 kg</td><td class="ex-note">+5</td></tr>
+<tr><td class="ex-name">Reverse lunge</td><td class="ex-sets">3</td><td class="ex-reps">6/side</td><td class="ex-tempo">3-1-2</td><td class="ex-load">27.5 kg/hand</td><td class="ex-note">+2.5</td></tr>
+<tr><td class="ex-name">Single-leg hip thrust</td><td class="ex-sets">3</td><td class="ex-reps">8/side</td><td class="ex-tempo">2-2-2</td><td class="ex-load">50 kg</td><td class="ex-note">+5</td></tr>
+<tr><td class="ex-name">Single-leg calf raise</td><td class="ex-sets">4</td><td class="ex-reps">10/side</td><td class="ex-tempo">3-2-3</td><td class="ex-load">25 kg DB</td><td class="ex-note">+2.5</td></tr>
+</tbody></table></div>
+
+<div class="day"><div class="day-header"><span class="day-name">Fri</span><span class="day-focus">Upper Pull + Core</span><span class="day-tag">UPPER</span></div>
+<table class="exercises"><thead><tr><th>Exercise</th><th>Sets</th><th>Reps</th><th>Tempo</th><th>Load</th><th>Note</th></tr></thead>
+<tbody>
+<tr><td class="ex-name">Pull-ups (weighted)</td><td class="ex-sets">5</td><td class="ex-reps">5</td><td class="ex-tempo">2-1-2</td><td class="ex-load">+12.5 kg</td><td class="ex-note">+2.5</td></tr>
+<tr><td class="ex-name">Barbell row</td><td class="ex-sets">4</td><td class="ex-reps">6</td><td class="ex-tempo">2-1-2</td><td class="ex-load">80 kg</td><td class="ex-note">+5</td></tr>
+<tr><td class="ex-name">Cable row</td><td class="ex-sets">3</td><td class="ex-reps">8</td><td class="ex-tempo">2-1-3</td><td class="ex-load">80 kg</td><td class="ex-note">+5</td></tr>
+<tr><td class="ex-name">Face pull</td><td class="ex-sets">3</td><td class="ex-reps">15</td><td class="ex-tempo">2-1-2</td><td class="ex-load">heavier</td><td class="ex-note">2s hold</td></tr>
+<tr><td class="ex-name">Ab wheel rollout</td><td class="ex-sets">3</td><td class="ex-reps">8</td><td class="ex-tempo">slow</td><td class="ex-load">BW</td><td class="ex-note">Replace wiper</td></tr>
+</tbody></table></div>
+
+<div class="day"><div class="day-header"><span class="day-name">Sat</span><span class="day-focus">Men's Practice + Optional U18 Skill</span><span class="day-tag bball">BBALL</span></div>
+<table class="exercises"><thead><tr><th>Exercise</th><th>Sets</th><th>Reps</th><th>Tempo</th><th>Load</th><th>Note</th></tr></thead>
+<tbody>
+<tr><td class="ex-name">Men's practice</td><td class="ex-sets">1</td><td class="ex-reps">90 min</td><td class="ex-tempo">match</td><td class="ex-load">—</td><td class="ex-note">Full effort</td></tr>
+<tr><td class="ex-name">Optional U18 skill</td><td class="ex-sets">1</td><td class="ex-reps">30 min</td><td class="ex-tempo">light</td><td class="ex-load">—</td><td class="ex-note">Only if no flare</td></tr>
+</tbody></table></div>
+
+<div class="day"><div class="day-header"><span class="day-name">Sun</span><span class="day-focus">Full Rest</span><span class="day-tag rest">REST</span></div></div>
+</div></div>
+
+<div class="week">
+<div class="week-header"><span class="week-num">W7</span><span class="week-name">Intensive Plyo Begins</span><span class="week-progression">Jun 16 — Jun 22 // Approach jumps in</span></div>
+<div class="days">
+
+<div class="day"><div class="day-header"><span class="day-name">Mon</span><span class="day-focus">Plyo (Approach) + Lower Strength</span><span class="day-tag">POWER</span></div>
+<table class="exercises"><thead><tr><th>Exercise</th><th>Sets</th><th>Reps</th><th>Tempo</th><th>Load</th><th>Note</th></tr></thead>
+<tbody>
+<tr><td class="ex-name">Pogo jumps</td><td class="ex-sets">3</td><td class="ex-reps">8</td><td class="ex-tempo">stiff</td><td class="ex-load">BW</td><td class="ex-note">Warmup plyo</td></tr>
+<tr><td class="ex-name">Approach 2-foot jump</td><td class="ex-sets">5</td><td class="ex-reps">3</td><td class="ex-tempo">max</td><td class="ex-load">BW</td><td class="ex-note">Full court approach</td></tr>
+<tr><td class="ex-name">Approach 1-foot L</td><td class="ex-sets">4</td><td class="ex-reps">2</td><td class="ex-tempo">max</td><td class="ex-load">BW</td><td class="ex-note">Weak leg first</td></tr>
+<tr><td class="ex-name">Approach 1-foot R</td><td class="ex-sets">4</td><td class="ex-reps">2</td><td class="ex-tempo">max</td><td class="ex-load">BW</td><td class="ex-note">Match L</td></tr>
+<tr><td class="ex-name">Back squat</td><td class="ex-sets">5</td><td class="ex-reps">3</td><td class="ex-tempo">2-1-1</td><td class="ex-load">105 kg</td><td class="ex-note">+5</td></tr>
+<tr><td class="ex-name">Romanian deadlift</td><td class="ex-sets">3</td><td class="ex-reps">5</td><td class="ex-tempo">3-1-1</td><td class="ex-load">110 kg</td><td class="ex-note">+5</td></tr>
+<tr><td class="ex-name">Bulgarian split squat</td><td class="ex-sets">3</td><td class="ex-reps">6/side</td><td class="ex-tempo">3-1-2</td><td class="ex-load">27.5 kg/hand</td><td class="ex-note">+2.5</td></tr>
+</tbody></table></div>
+
+<div class="day"><div class="day-header"><span class="day-name">Tue</span><span class="day-focus">Upper Push + Core</span><span class="day-tag">UPPER</span></div>
+<table class="exercises"><thead><tr><th>Exercise</th><th>Sets</th><th>Reps</th><th>Tempo</th><th>Load</th><th>Note</th></tr></thead>
+<tbody>
+<tr><td class="ex-name">Bench press</td><td class="ex-sets">5</td><td class="ex-reps">4</td><td class="ex-tempo">2-1-1</td><td class="ex-load">90 kg</td><td class="ex-note">+5</td></tr>
+<tr><td class="ex-name">Incline DB press</td><td class="ex-sets">3</td><td class="ex-reps">8</td><td class="ex-tempo">3-1-1</td><td class="ex-load">42.5 kg</td><td class="ex-note">+2.5</td></tr>
+<tr><td class="ex-name">Standing OHP</td><td class="ex-sets">4</td><td class="ex-reps">5</td><td class="ex-tempo">2-1-2</td><td class="ex-load">52.5 kg</td><td class="ex-note">+2.5</td></tr>
+<tr><td class="ex-name">Lateral raise</td><td class="ex-sets">3</td><td class="ex-reps">12</td><td class="ex-tempo">2-1-2</td><td class="ex-load">15 kg</td><td class="ex-note">+1</td></tr>
+<tr><td class="ex-name">Ab wheel</td><td class="ex-sets">3</td><td class="ex-reps">10</td><td class="ex-tempo">slow</td><td class="ex-load">BW</td><td class="ex-note">+2</td></tr>
+</tbody></table></div>
+
+<div class="day"><div class="day-header"><span class="day-name">Wed</span><span class="day-focus">Court Movement + Skill</span><span class="day-tag bball">SKILL</span></div>
+<table class="exercises"><thead><tr><th>Exercise</th><th>Sets</th><th>Reps</th><th>Tempo</th><th>Load</th><th>Note</th></tr></thead>
+<tbody>
+<tr><td class="ex-name">Lateral shuffle</td><td class="ex-sets">5</td><td class="ex-reps">15s</td><td class="ex-tempo">fast</td><td class="ex-load">BW</td><td class="ex-note">Defense work</td></tr>
+<tr><td class="ex-name">Closeout drill</td><td class="ex-sets">5</td><td class="ex-reps">5</td><td class="ex-tempo">explosive</td><td class="ex-load">BW</td><td class="ex-note">Sprint + brake</td></tr>
+<tr><td class="ex-name">Pull-up jumper drill</td><td class="ex-sets">—</td><td class="ex-reps">25 min</td><td class="ex-tempo">moderate</td><td class="ex-load">BW</td><td class="ex-note">Off the dribble</td></tr>
+<tr><td class="ex-name">Free throws</td><td class="ex-sets">5</td><td class="ex-reps">20</td><td class="ex-tempo">routine</td><td class="ex-load">BW</td><td class="ex-note">After fatigue</td></tr>
+</tbody></table></div>
+
+<div class="day"><div class="day-header"><span class="day-name">Thu</span><span class="day-focus">Plyo (Depth) + Posterior Chain</span><span class="day-tag">POWER</span></div>
+<table class="exercises"><thead><tr><th>Exercise</th><th>Sets</th><th>Reps</th><th>Tempo</th><th>Load</th><th>Note</th></tr></thead>
+<tbody>
+<tr><td class="ex-name">Depth drop (30cm box)</td><td class="ex-sets">3</td><td class="ex-reps">5</td><td class="ex-tempo">stick land</td><td class="ex-load">BW</td><td class="ex-note">Eccentric only</td></tr>
+<tr><td class="ex-name">Skater bound</td><td class="ex-sets">4</td><td class="ex-reps">5/side</td><td class="ex-tempo">explosive</td><td class="ex-load">BW</td><td class="ex-note">Distance focus</td></tr>
+<tr><td class="ex-name">Broad jump</td><td class="ex-sets">5</td><td class="ex-reps">3</td><td class="ex-tempo">max</td><td class="ex-load">BW</td><td class="ex-note">Stick landings</td></tr>
+<tr><td class="ex-name">Conventional deadlift</td><td class="ex-sets">5</td><td class="ex-reps">3</td><td class="ex-tempo">2-1-1</td><td class="ex-load">120 kg</td><td class="ex-note">+5</td></tr>
+<tr><td class="ex-name">Reverse lunge</td><td class="ex-sets">3</td><td class="ex-reps">6/side</td><td class="ex-tempo">3-1-2</td><td class="ex-load">30 kg/hand</td><td class="ex-note">+2.5</td></tr>
+<tr><td class="ex-name">Hip thrust (bilateral)</td><td class="ex-sets">3</td><td class="ex-reps">6</td><td class="ex-tempo">2-1-1</td><td class="ex-load">130 kg</td><td class="ex-note">Heavy bilateral back</td></tr>
+<tr><td class="ex-name">Single-leg calf raise</td><td class="ex-sets">4</td><td class="ex-reps">10/side</td><td class="ex-tempo">3-2-3</td><td class="ex-load">27.5 kg DB</td><td class="ex-note">+2.5</td></tr>
+</tbody></table></div>
+
+<div class="day"><div class="day-header"><span class="day-name">Fri</span><span class="day-focus">Upper Pull + Core</span><span class="day-tag">UPPER</span></div>
+<table class="exercises"><thead><tr><th>Exercise</th><th>Sets</th><th>Reps</th><th>Tempo</th><th>Load</th><th>Note</th></tr></thead>
+<tbody>
+<tr><td class="ex-name">Pull-ups (weighted)</td><td class="ex-sets">5</td><td class="ex-reps">5</td><td class="ex-tempo">2-1-2</td><td class="ex-load">+15 kg</td><td class="ex-note">+2.5</td></tr>
+<tr><td class="ex-name">Barbell row</td><td class="ex-sets">4</td><td class="ex-reps">6</td><td class="ex-tempo">2-1-2</td><td class="ex-load">82.5 kg</td><td class="ex-note">+2.5</td></tr>
+<tr><td class="ex-name">Cable row</td><td class="ex-sets">3</td><td class="ex-reps">8</td><td class="ex-tempo">2-1-3</td><td class="ex-load">82.5 kg</td><td class="ex-note">+2.5</td></tr>
+<tr><td class="ex-name">Face pull</td><td class="ex-sets">3</td><td class="ex-reps">15</td><td class="ex-tempo">2-1-2</td><td class="ex-load">heavier</td><td class="ex-note">2s hold</td></tr>
+<tr><td class="ex-name">Ab wheel rollout</td><td class="ex-sets">3</td><td class="ex-reps">10</td><td class="ex-tempo">slow</td><td class="ex-load">BW</td><td class="ex-note">Strict</td></tr>
+</tbody></table></div>
+
+<div class="day"><div class="day-header"><span class="day-name">Sat</span><span class="day-focus">Men's Practice — Full Effort</span><span class="day-tag bball">BBALL</span></div>
+<table class="exercises"><thead><tr><th>Exercise</th><th>Sets</th><th>Reps</th><th>Tempo</th><th>Load</th><th>Note</th></tr></thead>
+<tbody>
+<tr><td class="ex-name">Men's practice</td><td class="ex-sets">1</td><td class="ex-reps">90-100 min</td><td class="ex-tempo">match</td><td class="ex-load">—</td><td class="ex-note">Test conditioning</td></tr>
+</tbody></table></div>
+
+<div class="day"><div class="day-header"><span class="day-name">Sun</span><span class="day-focus">Full Rest</span><span class="day-tag rest">REST</span></div></div>
+</div></div>
+
+<div class="week">
+<div class="week-header"><span class="week-num">W8</span><span class="week-name">Test Week</span><span class="week-progression">Jun 23 — Jun 29 // 1RM tests + jump retest</span></div>
+<div class="days">
+
+<div class="day"><div class="day-header"><span class="day-name">Mon</span><span class="day-focus">Squat 1RM Test</span><span class="day-tag">TEST</span></div>
+<table class="exercises"><thead><tr><th>Exercise</th><th>Sets</th><th>Reps</th><th>Tempo</th><th>Load</th><th>Note</th></tr></thead>
+<tbody>
+<tr><td class="ex-name">Pogo warmup</td><td class="ex-sets">2</td><td class="ex-reps">8</td><td class="ex-tempo">stiff</td><td class="ex-load">BW</td><td class="ex-note">Activation</td></tr>
+<tr><td class="ex-name">Back squat warmup</td><td class="ex-sets">5</td><td class="ex-reps">5,3,2,1,1</td><td class="ex-tempo">2-1-1</td><td class="ex-load">60→105</td><td class="ex-note">Ramp</td></tr>
+<tr><td class="ex-name">Back squat 1RM attempts</td><td class="ex-sets">3</td><td class="ex-reps">1</td><td class="ex-tempo">2-1-1</td><td class="ex-load">120, 127.5, 132.5</td><td class="ex-note">Target ≥130 kg</td></tr>
+<tr><td class="ex-name">Single-leg hip thrust</td><td class="ex-sets">3</td><td class="ex-reps">8/side</td><td class="ex-tempo">2-2-2</td><td class="ex-load">50 kg</td><td class="ex-note">Recovery work</td></tr>
+<tr><td class="ex-name">Copenhagen plank</td><td class="ex-sets">3</td><td class="ex-reps">40s/side</td><td class="ex-tempo">hold</td><td class="ex-load">BW</td><td class="ex-note">Test hold</td></tr>
+</tbody></table></div>
+
+<div class="day"><div class="day-header"><span class="day-name">Tue</span><span class="day-focus">Upper Push (Light)</span><span class="day-tag">UPPER</span></div>
+<table class="exercises"><thead><tr><th>Exercise</th><th>Sets</th><th>Reps</th><th>Tempo</th><th>Load</th><th>Note</th></tr></thead>
+<tbody>
+<tr><td class="ex-name">Bench press</td><td class="ex-sets">3</td><td class="ex-reps">5</td><td class="ex-tempo">2-1-1</td><td class="ex-load">82.5 kg</td><td class="ex-note">Light, recover</td></tr>
+<tr><td class="ex-name">DB shoulder press</td><td class="ex-sets">3</td><td class="ex-reps">8</td><td class="ex-tempo">2-1-2</td><td class="ex-load">22.5 kg</td><td class="ex-note">Lighter</td></tr>
+<tr><td class="ex-name">Lateral raise</td><td class="ex-sets">3</td><td class="ex-reps">15</td><td class="ex-tempo">2-1-2</td><td class="ex-load">12 kg</td><td class="ex-note">Pump</td></tr>
+<tr><td class="ex-name">Pallof press</td><td class="ex-sets">3</td><td class="ex-reps">12/side</td><td class="ex-tempo">3-2-3</td><td class="ex-load">moderate</td><td class="ex-note">Spinal hygiene</td></tr>
+</tbody></table></div>
+
+<div class="day"><div class="day-header"><span class="day-name">Wed</span><span class="day-focus">Vertical Jump Test + Skill</span><span class="day-tag">TEST</span></div>
+<table class="exercises"><thead><tr><th>Exercise</th><th>Sets</th><th>Reps</th><th>Tempo</th><th>Load</th><th>Note</th></tr></thead>
+<tbody>
+<tr><td class="ex-name">Approach 2-foot test</td><td class="ex-sets">5</td><td class="ex-reps">1</td><td class="ex-tempo">max</td><td class="ex-load">BW</td><td class="ex-note">Target 75 cm</td></tr>
+<tr><td class="ex-name">Approach 1-foot L test</td><td class="ex-sets">3</td><td class="ex-reps">1</td><td class="ex-tempo">max</td><td class="ex-load">BW</td><td class="ex-note">Target 65 cm</td></tr>
+<tr><td class="ex-name">Approach 1-foot R test</td><td class="ex-sets">3</td><td class="ex-reps">1</td><td class="ex-tempo">max</td><td class="ex-load">BW</td><td class="ex-note">Target 73 cm</td></tr>
+<tr><td class="ex-name">Standing 2-foot test</td><td class="ex-sets">3</td><td class="ex-reps">1</td><td class="ex-tempo">max</td><td class="ex-load">BW</td><td class="ex-note">Log baseline</td></tr>
+<tr><td class="ex-name">Form shooting + skill</td><td class="ex-sets">—</td><td class="ex-reps">30 min</td><td class="ex-tempo">flow</td><td class="ex-load">BW</td><td class="ex-note">Light</td></tr>
+</tbody></table></div>
+
+<div class="day"><div class="day-header"><span class="day-name">Thu</span><span class="day-focus">Deadlift 1RM Test</span><span class="day-tag">TEST</span></div>
+<table class="exercises"><thead><tr><th>Exercise</th><th>Sets</th><th>Reps</th><th>Tempo</th><th>Load</th><th>Note</th></tr></thead>
+<tbody>
+<tr><td class="ex-name">Deadlift warmup</td><td class="ex-sets">5</td><td class="ex-reps">5,3,2,1,1</td><td class="ex-tempo">2-1-1</td><td class="ex-load">70→120</td><td class="ex-note">Ramp</td></tr>
+<tr><td class="ex-name">Deadlift 1RM attempts</td><td class="ex-sets">3</td><td class="ex-reps">1</td><td class="ex-tempo">2-1-1</td><td class="ex-load">140, 150, 160</td><td class="ex-note">Target ≥150 kg</td></tr>
+<tr><td class="ex-name">Reverse lunge</td><td class="ex-sets">2</td><td class="ex-reps">8/side</td><td class="ex-tempo">3-1-2</td><td class="ex-load">22.5 kg/hand</td><td class="ex-note">Easy work</td></tr>
+<tr><td class="ex-name">Single-leg calf raise</td><td class="ex-sets">3</td><td class="ex-reps">12/side</td><td class="ex-tempo">3-2-3</td><td class="ex-load">moderate</td><td class="ex-note">Maintenance</td></tr>
+</tbody></table></div>
+
+<div class="day"><div class="day-header"><span class="day-name">Fri</span><span class="day-focus">Bench Test + Pull Light</span><span class="day-tag">TEST</span></div>
+<table class="exercises"><thead><tr><th>Exercise</th><th>Sets</th><th>Reps</th><th>Tempo</th><th>Load</th><th>Note</th></tr></thead>
+<tbody>
+<tr><td class="ex-name">Bench warmup</td><td class="ex-sets">5</td><td class="ex-reps">5,3,2,1,1</td><td class="ex-tempo">2-1-1</td><td class="ex-load">50→90</td><td class="ex-note">Ramp</td></tr>
+<tr><td class="ex-name">Bench 1RM attempts</td><td class="ex-sets">3</td><td class="ex-reps">1</td><td class="ex-tempo">2-1-1</td><td class="ex-load">100, 105, 110</td><td class="ex-note">Target ≥105 kg</td></tr>
+<tr><td class="ex-name">Pull-ups (max BW set)</td><td class="ex-sets">3</td><td class="ex-reps">AMRAP</td><td class="ex-tempo">2-1-2</td><td class="ex-load">BW</td><td class="ex-note">Target 12+</td></tr>
+<tr><td class="ex-name">Single-arm DB row</td><td class="ex-sets">3</td><td class="ex-reps">10/side</td><td class="ex-tempo">2-1-2</td><td class="ex-load">35 kg</td><td class="ex-note">Light pull</td></tr>
+</tbody></table></div>
+
+<div class="day"><div class="day-header"><span class="day-name">Sat</span><span class="day-focus">Practice — Conditioning Probe</span><span class="day-tag bball">BBALL</span></div>
+<table class="exercises"><thead><tr><th>Exercise</th><th>Sets</th><th>Reps</th><th>Tempo</th><th>Load</th><th>Note</th></tr></thead>
+<tbody>
+<tr><td class="ex-name">U18 practice (faster pace)</td><td class="ex-sets">1</td><td class="ex-reps">90 min</td><td class="ex-tempo">match</td><td class="ex-load">—</td><td class="ex-note">Test conditioning</td></tr>
+</tbody></table></div>
+
+<div class="day"><div class="day-header"><span class="day-name">Sun</span><span class="day-focus">Full Rest</span><span class="day-tag rest">REST</span></div></div>
+</div></div>
+
+<div class="nutrition-block">
+<div class="nutrition-title">Phase 2 Fuel</div>
+<div class="nutrition-sub">// Maintenance · Performance Priority · Tendon Stack Continues</div>
+<div class="macro-grid">
+<div class="macro"><div class="macro-label">Calories</div><div class="macro-value">2850<span class="macro-unit">kcal</span></div></div>
+<div class="macro"><div class="macro-label">Protein</div><div class="macro-value">200<span class="macro-unit">g</span></div></div>
+<div class="macro"><div class="macro-label">Carbs</div><div class="macro-value">340<span class="macro-unit">g</span></div></div>
+<div class="macro"><div class="macro-label">Fat</div><div class="macro-value">75<span class="macro-unit">g</span></div></div>
+</div>
+<ul class="nutrition-rules">
+<li><strong style="color:var(--blood)">CALORIE BUMP:</strong> +200 kcal from Phase 1, all from carbs. Fuel the plyo work.</li>
+<li><strong style="color:var(--blood)">PRE-PLYO MEAL:</strong> 60g carbs + 30g protein, 90 min before plyo sessions.</li>
+<li><strong style="color:var(--blood)">POST-LIFT WINDOW:</strong> 50g protein + 80g carbs within 60 min of heavy sessions.</li>
+<li><strong style="color:var(--blood)">REST DAYS:</strong> drop carbs to 250g, total ~2550 kcal. Protein stays.</li>
+<li><strong style="color:var(--blood)">TENDON STACK:</strong> continue 15g collagen + 50mg vit C before every lower session.</li>
+<li><strong style="color:var(--blood)">CREATINE:</strong> 5g/day, daily. Cumulative effect by Phase 3.</li>
+<li><strong style="color:var(--blood)">WEIGHT TARGET:</strong> 91-92 kg AM by end of Phase 2. Lean mass holding/rising.</li>
+</ul>
+</div>
+
+<div class="milestone">
+<div class="milestone-title">Week 8 Checkpoint</div>
+<div class="milestone-grid">
+<div class="milestone-item"><span class="milestone-marker"></span><span class="milestone-text">Squat 1RM <strong>≥ 130 kg</strong> (1.4× BW)</span></div>
+<div class="milestone-item"><span class="milestone-marker"></span><span class="milestone-text">Deadlift 1RM <strong>≥ 150 kg</strong> (1.6× BW)</span></div>
+<div class="milestone-item"><span class="milestone-marker"></span><span class="milestone-text">Bench 1RM <strong>≥ 105 kg</strong></span></div>
+<div class="milestone-item"><span class="milestone-marker"></span><span class="milestone-text">Approach vertical <strong>75 cm</strong> 2-foot</span></div>
+<div class="milestone-item"><span class="milestone-marker"></span><span class="milestone-text">L/R single-leg jump <strong>&lt; 8% diff</strong></span></div>
+<div class="milestone-item"><span class="milestone-marker"></span><span class="milestone-text">Touching rim <strong>consistently</strong></span></div>
+<div class="milestone-item"><span class="milestone-marker"></span><span class="milestone-text">Bodyweight <strong>91 kg</strong> AM</span></div>
+<div class="milestone-item"><span class="milestone-marker"></span><span class="milestone-text">Full 90-min practice <strong>pain-free</strong></span></div>
+</div>
+</div>
+
+</div>
+</section>
+
+<section class="phase">
+<div class="container">
+<div class="phase-banner">
+<div class="phase-number">03</div>
+<div class="phase-titleblock">
+<div class="phase-tag">// PHASE THREE / WEEKS 09–12</div>
+<h2 class="phase-title">Power<br>&amp; Conditioning</h2>
+<div class="phase-dates">June 30 → July 27</div>
+</div>
+</div>
+<p class="phase-thesis">Strength is in the bank. Now we turn it into <strong>basketball power</strong>. Olympic lift derivatives, weighted jumps, depth jumps, sled work. Court conditioning becomes serious — repeat-sprint ability, defensive slides under fatigue, full-court transition reps. Lifting volume drops slightly, intensity stays high. Two basketball practices per week become standard. By the end of Phase 3, the body should look and move like a player again.</p>
+<div class="callout">
+<div class="callout-title">// The Real Battle</div>
+<div class="callout-text">Conditioning is the gap between you and your peers. The men's team is too slow to test it; the U18 sessions matter more here. Aim to outwork the 18-year-olds. If you can't yet, that's the data — keep pushing repeat-sprint capacity. Vertical jump should jump in this phase as reactive strength reconnects with raw force.</div>
+</div>
+
+<div class="week">
+<div class="week-header"><span class="week-num">W9</span><span class="week-name">Power Block Begins</span><span class="week-progression">Jun 30 — Jul 6 // Cleans return, sled in</span></div>
+<div class="days">
+
+<div class="day"><div class="day-header"><span class="day-name">Mon</span><span class="day-focus">Power + Lower Strength</span><span class="day-tag">POWER</span></div>
+<table class="exercises"><thead><tr><th>Exercise</th><th>Sets</th><th>Reps</th><th>Tempo</th><th>Load</th><th>Note</th></tr></thead>
+<tbody>
+<tr><td class="ex-name">Pogo (warm-up)</td><td class="ex-sets">2</td><td class="ex-reps">8</td><td class="ex-tempo">stiff</td><td class="ex-load">BW</td><td class="ex-note">Prime CNS</td></tr>
+<tr><td class="ex-name">Hang power clean</td><td class="ex-sets">5</td><td class="ex-reps">3</td><td class="ex-tempo">explosive</td><td class="ex-load">75 kg</td><td class="ex-note">Speed not weight</td></tr>
+<tr><td class="ex-name">Approach 2-foot jump</td><td class="ex-sets">4</td><td class="ex-reps">3</td><td class="ex-tempo">max</td><td class="ex-load">BW</td><td class="ex-note">Quality</td></tr>
+<tr><td class="ex-name">Back squat</td><td class="ex-sets">4</td><td class="ex-reps">3</td><td class="ex-tempo">2-1-1</td><td class="ex-load">112.5 kg</td><td class="ex-note">85% of new 1RM</td></tr>
+<tr><td class="ex-name">Romanian deadlift</td><td class="ex-sets">3</td><td class="ex-reps">5</td><td class="ex-tempo">3-1-1</td><td class="ex-load">115 kg</td><td class="ex-note">+5</td></tr>
+<tr><td class="ex-name">Bulgarian split squat</td><td class="ex-sets">3</td><td class="ex-reps">5/side</td><td class="ex-tempo">3-1-1</td><td class="ex-load">30 kg/hand</td><td class="ex-note">Heavier, less reps</td></tr>
+<tr><td class="ex-name">Copenhagen plank</td><td class="ex-sets">3</td><td class="ex-reps">45s/side</td><td class="ex-tempo">hold</td><td class="ex-load">BW</td><td class="ex-note">Progress</td></tr>
+</tbody></table></div>
+
+<div class="day"><div class="day-header"><span class="day-name">Tue</span><span class="day-focus">Upper Power-Strength + Court Conditioning</span><span class="day-tag">UPPER</span></div>
+<table class="exercises"><thead><tr><th>Exercise</th><th>Sets</th><th>Reps</th><th>Tempo</th><th>Load</th><th>Note</th></tr></thead>
+<tbody>
+<tr><td class="ex-name">Bench press</td><td class="ex-sets">5</td><td class="ex-reps">3</td><td class="ex-tempo">2-0-1</td><td class="ex-load">92.5 kg</td><td class="ex-note">Speed concentric</td></tr>
+<tr><td class="ex-name">Med ball chest pass</td><td class="ex-sets">4</td><td class="ex-reps">5</td><td class="ex-tempo">explosive</td><td class="ex-load">5 kg</td><td class="ex-note">Power</td></tr>
+<tr><td class="ex-name">Standing OHP</td><td class="ex-sets">4</td><td class="ex-reps">4</td><td class="ex-tempo">2-1-1</td><td class="ex-load">55 kg</td><td class="ex-note">+2.5</td></tr>
+<tr class="section-header"><td colspan="6">Court Conditioning</td></tr>
+<tr><td class="ex-name">17s (sideline-sideline)</td><td class="ex-sets">4</td><td class="ex-reps">17 lines/60s</td><td class="ex-tempo">max</td><td class="ex-load">—</td><td class="ex-note">2 min rest</td></tr>
+<tr><td class="ex-name">Defensive slide quarter</td><td class="ex-sets">4</td><td class="ex-reps">28s</td><td class="ex-tempo">low stance</td><td class="ex-load">—</td><td class="ex-note">Around FT line</td></tr>
+</tbody></table></div>
+
+<div class="day"><div class="day-header"><span class="day-name">Wed</span><span class="day-focus">Skill + Active Recovery</span><span class="day-tag bball">SKILL</span></div>
+<table class="exercises"><thead><tr><th>Exercise</th><th>Sets</th><th>Reps</th><th>Tempo</th><th>Load</th><th>Note</th></tr></thead>
+<tbody>
+<tr><td class="ex-name">Easy bike</td><td class="ex-sets">1</td><td class="ex-reps">25 min</td><td class="ex-tempo">Z2</td><td class="ex-load">low</td><td class="ex-note">Recovery</td></tr>
+<tr><td class="ex-name">Skill (PnR, ISO, finish)</td><td class="ex-sets">—</td><td class="ex-reps">60 min</td><td class="ex-tempo">flow</td><td class="ex-load">BW</td><td class="ex-note">Game-like</td></tr>
+<tr><td class="ex-name">Free throws under fatigue</td><td class="ex-sets">5</td><td class="ex-reps">10</td><td class="ex-tempo">routine</td><td class="ex-load">BW</td><td class="ex-note">Track %</td></tr>
+</tbody></table></div>
+
+<div class="day"><div class="day-header"><span class="day-name">Thu</span><span class="day-focus">Plyo + Posterior Power</span><span class="day-tag">POWER</span></div>
+<table class="exercises"><thead><tr><th>Exercise</th><th>Sets</th><th>Reps</th><th>Tempo</th><th>Load</th><th>Note</th></tr></thead>
+<tbody>
+<tr><td class="ex-name">Depth jump (40cm box)</td><td class="ex-sets">4</td><td class="ex-reps">4</td><td class="ex-tempo">explosive rebound</td><td class="ex-load">BW</td><td class="ex-note">Min ground time</td></tr>
+<tr><td class="ex-name">Single-leg bound (L)</td><td class="ex-sets">3</td><td class="ex-reps">5</td><td class="ex-tempo">explosive</td><td class="ex-load">BW</td><td class="ex-note">L drives</td></tr>
+<tr><td class="ex-name">Single-leg bound (R)</td><td class="ex-sets">3</td><td class="ex-reps">5</td><td class="ex-tempo">explosive</td><td class="ex-load">BW</td><td class="ex-note">Match L</td></tr>
+<tr><td class="ex-name">Conventional deadlift</td><td class="ex-sets">5</td><td class="ex-reps">3</td><td class="ex-tempo">2-0-1</td><td class="ex-load">125 kg</td><td class="ex-note">Speed pulls</td></tr>
+<tr><td class="ex-name">Reverse lunge</td><td class="ex-sets">3</td><td class="ex-reps">5/side</td><td class="ex-tempo">3-1-2</td><td class="ex-load">32.5 kg/hand</td><td class="ex-note">+2.5</td></tr>
+<tr><td class="ex-name">Hip thrust</td><td class="ex-sets">3</td><td class="ex-reps">5</td><td class="ex-tempo">2-1-1</td><td class="ex-load">140 kg</td><td class="ex-note">+10</td></tr>
+<tr><td class="ex-name">Single-leg calf</td><td class="ex-sets">4</td><td class="ex-reps">8/side</td><td class="ex-tempo">3-2-3</td><td class="ex-load">30 kg DB</td><td class="ex-note">+2.5</td></tr>
+</tbody></table></div>
+
+<div class="day"><div class="day-header"><span class="day-name">Fri</span><span class="day-focus">Upper Pull + Sled</span><span class="day-tag">UPPER</span></div>
+<table class="exercises"><thead><tr><th>Exercise</th><th>Sets</th><th>Reps</th><th>Tempo</th><th>Load</th><th>Note</th></tr></thead>
+<tbody>
+<tr><td class="ex-name">Pull-ups (weighted)</td><td class="ex-sets">5</td><td class="ex-reps">4</td><td class="ex-tempo">2-1-2</td><td class="ex-load">+17.5 kg</td><td class="ex-note">+2.5</td></tr>
+<tr><td class="ex-name">Barbell row</td><td class="ex-sets">4</td><td class="ex-reps">5</td><td class="ex-tempo">2-1-2</td><td class="ex-load">87.5 kg</td><td class="ex-note">+2.5</td></tr>
+<tr><td class="ex-name">Sled push (heavy)</td><td class="ex-sets">5</td><td class="ex-reps">20m</td><td class="ex-tempo">drive</td><td class="ex-load">+60 kg</td><td class="ex-note">Acceleration</td></tr>
+<tr><td class="ex-name">Sled drag (backwards)</td><td class="ex-sets">3</td><td class="ex-reps">20m</td><td class="ex-tempo">controlled</td><td class="ex-load">+40 kg</td><td class="ex-note">VMO load</td></tr>
+<tr><td class="ex-name">Ab wheel</td><td class="ex-sets">3</td><td class="ex-reps">12</td><td class="ex-tempo">slow</td><td class="ex-load">BW</td><td class="ex-note">Strict</td></tr>
+</tbody></table></div>
+
+<div class="day"><div class="day-header"><span class="day-name">Sat</span><span class="day-focus">Practice (Men's) + U18 Optional</span><span class="day-tag bball">BBALL</span></div>
+<table class="exercises"><thead><tr><th>Exercise</th><th>Sets</th><th>Reps</th><th>Tempo</th><th>Load</th><th>Note</th></tr></thead>
+<tbody>
+<tr><td class="ex-name">Men's practice</td><td class="ex-sets">1</td><td class="ex-reps">90 min</td><td class="ex-tempo">match</td><td class="ex-load">—</td><td class="ex-note">Full effort</td></tr>
+<tr><td class="ex-name">U18 light scrimmage</td><td class="ex-sets">1</td><td class="ex-reps">30 min</td><td class="ex-tempo">moderate</td><td class="ex-load">—</td><td class="ex-note">Optional only</td></tr>
+</tbody></table></div>
+
+<div class="day"><div class="day-header"><span class="day-name">Sun</span><span class="day-focus">Full Rest</span><span class="day-tag rest">REST</span></div></div>
+</div></div>
+
+<div class="week">
+<div class="week-header"><span class="week-num">W10</span><span class="week-name">Volume Up — Power Maintained</span><span class="week-progression">Jul 7 — Jul 13 // +5 kg cleans</span></div>
+<div class="days">
+
+<div class="day"><div class="day-header"><span class="day-name">Mon</span><span class="day-focus">Power + Lower Strength</span><span class="day-tag">POWER</span></div>
+<table class="exercises"><thead><tr><th>Exercise</th><th>Sets</th><th>Reps</th><th>Tempo</th><th>Load</th><th>Note</th></tr></thead>
+<tbody>
+<tr><td class="ex-name">Hang power clean</td><td class="ex-sets">5</td><td class="ex-reps">3</td><td class="ex-tempo">explosive</td><td class="ex-load">80 kg</td><td class="ex-note">+5</td></tr>
+<tr><td class="ex-name">Approach 2-foot jump</td><td class="ex-sets">5</td><td class="ex-reps">3</td><td class="ex-tempo">max</td><td class="ex-load">BW</td><td class="ex-note">Quality only</td></tr>
+<tr><td class="ex-name">Back squat</td><td class="ex-sets">4</td><td class="ex-reps">3</td><td class="ex-tempo">2-1-1</td><td class="ex-load">115 kg</td><td class="ex-note">+2.5</td></tr>
+<tr><td class="ex-name">Romanian deadlift</td><td class="ex-sets">3</td><td class="ex-reps">5</td><td class="ex-tempo">3-1-1</td><td class="ex-load">120 kg</td><td class="ex-note">+5</td></tr>
+<tr><td class="ex-name">Bulgarian split squat</td><td class="ex-sets">3</td><td class="ex-reps">5/side</td><td class="ex-tempo">3-1-1</td><td class="ex-load">32.5 kg/hand</td><td class="ex-note">+2.5</td></tr>
+</tbody></table></div>
+
+<div class="day"><div class="day-header"><span class="day-name">Tue</span><span class="day-focus">Upper Push + Court Conditioning</span><span class="day-tag">UPPER</span></div>
+<table class="exercises"><thead><tr><th>Exercise</th><th>Sets</th><th>Reps</th><th>Tempo</th><th>Load</th><th>Note</th></tr></thead>
+<tbody>
+<tr><td class="ex-name">Bench press</td><td class="ex-sets">5</td><td class="ex-reps">3</td><td class="ex-tempo">2-0-1</td><td class="ex-load">95 kg</td><td class="ex-note">+2.5</td></tr>
+<tr><td class="ex-name">Med ball chest pass</td><td class="ex-sets">4</td><td class="ex-reps">5</td><td class="ex-tempo">explosive</td><td class="ex-load">6 kg</td><td class="ex-note">+1 kg</td></tr>
+<tr><td class="ex-name">Standing OHP</td><td class="ex-sets">4</td><td class="ex-reps">4</td><td class="ex-tempo">2-1-1</td><td class="ex-load">57.5 kg</td><td class="ex-note">+2.5</td></tr>
+<tr><td class="ex-name">Lateral raise</td><td class="ex-sets">3</td><td class="ex-reps">10</td><td class="ex-tempo">2-1-2</td><td class="ex-load">17.5 kg</td><td class="ex-note">+2.5</td></tr>
+<tr><td class="ex-name">Suicides (full court)</td><td class="ex-sets">5</td><td class="ex-reps">1</td><td class="ex-tempo">max</td><td class="ex-load">—</td><td class="ex-note">3 min rest</td></tr>
+<tr><td class="ex-name">Defensive slide</td><td class="ex-sets">5</td><td class="ex-reps">28s</td><td class="ex-tempo">low</td><td class="ex-load">—</td><td class="ex-note">+1 set</td></tr>
+</tbody></table></div>
+
+<div class="day"><div class="day-header"><span class="day-name">Wed</span><span class="day-focus">U18 Practice (Conditioning Day)</span><span class="day-tag bball">BBALL</span></div>
+<table class="exercises"><thead><tr><th>Exercise</th><th>Sets</th><th>Reps</th><th>Tempo</th><th>Load</th><th>Note</th></tr></thead>
+<tbody>
+<tr><td class="ex-name">U18 practice</td><td class="ex-sets">1</td><td class="ex-reps">90-100 min</td><td class="ex-tempo">match</td><td class="ex-load">—</td><td class="ex-note">High pace</td></tr>
+<tr><td class="ex-name">Glute medius circuit</td><td class="ex-sets">2</td><td class="ex-reps">full</td><td class="ex-tempo">controlled</td><td class="ex-load">BW</td><td class="ex-note">Cooldown</td></tr>
+</tbody></table></div>
+
+<div class="day"><div class="day-header"><span class="day-name">Thu</span><span class="day-focus">Plyo + Posterior Chain Power</span><span class="day-tag">POWER</span></div>
+<table class="exercises"><thead><tr><th>Exercise</th><th>Sets</th><th>Reps</th><th>Tempo</th><th>Load</th><th>Note</th></tr></thead>
+<tbody>
+<tr><td class="ex-name">Depth jump (45cm)</td><td class="ex-sets">4</td><td class="ex-reps">4</td><td class="ex-tempo">rebound</td><td class="ex-load">BW</td><td class="ex-note">Higher box</td></tr>
+<tr><td class="ex-name">Single-leg bound</td><td class="ex-sets">3</td><td class="ex-reps">6/side</td><td class="ex-tempo">explosive</td><td class="ex-load">BW</td><td class="ex-note">+1 rep</td></tr>
+<tr><td class="ex-name">Conventional deadlift</td><td class="ex-sets">5</td><td class="ex-reps">3</td><td class="ex-tempo">2-0-1</td><td class="ex-load">130 kg</td><td class="ex-note">+5</td></tr>
+<tr><td class="ex-name">Reverse lunge</td><td class="ex-sets">3</td><td class="ex-reps">5/side</td><td class="ex-tempo">3-1-2</td><td class="ex-load">35 kg/hand</td><td class="ex-note">+2.5</td></tr>
+<tr><td class="ex-name">Hip thrust</td><td class="ex-sets">3</td><td class="ex-reps">5</td><td class="ex-tempo">2-1-1</td><td class="ex-load">145 kg</td><td class="ex-note">+5</td></tr>
+<tr><td class="ex-name">Single-leg calf</td><td class="ex-sets">4</td><td class="ex-reps">8/side</td><td class="ex-tempo">3-2-3</td><td class="ex-load">32.5 kg DB</td><td class="ex-note">+2.5</td></tr>
+</tbody></table></div>
+
+<div class="day"><div class="day-header"><span class="day-name">Fri</span><span class="day-focus">Upper Pull + Sled</span><span class="day-tag">UPPER</span></div>
+<table class="exercises"><thead><tr><th>Exercise</th><th>Sets</th><th>Reps</th><th>Tempo</th><th>Load</th><th>Note</th></tr></thead>
+<tbody>
+<tr><td class="ex-name">Pull-ups (weighted)</td><td class="ex-sets">5</td><td class="ex-reps">4</td><td class="ex-tempo">2-1-2</td><td class="ex-load">+20 kg</td><td class="ex-note">+2.5</td></tr>
+<tr><td class="ex-name">Barbell row</td><td class="ex-sets">4</td><td class="ex-reps">5</td><td class="ex-tempo">2-1-2</td><td class="ex-load">90 kg</td><td class="ex-note">+2.5</td></tr>
+<tr><td class="ex-name">Sled push</td><td class="ex-sets">5</td><td class="ex-reps">20m</td><td class="ex-tempo">drive</td><td class="ex-load">+70 kg</td><td class="ex-note">+10</td></tr>
+<tr><td class="ex-name">Sled drag backwards</td><td class="ex-sets">3</td><td class="ex-reps">20m</td><td class="ex-tempo">controlled</td><td class="ex-load">+45 kg</td><td class="ex-note">+5</td></tr>
+<tr><td class="ex-name">Ab wheel</td><td class="ex-sets">3</td><td class="ex-reps">12</td><td class="ex-tempo">slow</td><td class="ex-load">BW</td><td class="ex-note">Strict</td></tr>
+</tbody></table></div>
+
+<div class="day"><div class="day-header"><span class="day-name">Sat</span><span class="day-focus">Men's Practice — Full</span><span class="day-tag bball">BBALL</span></div>
+<table class="exercises"><thead><tr><th>Exercise</th><th>Sets</th><th>Reps</th><th>Tempo</th><th>Load</th><th>Note</th></tr></thead>
+<tbody>
+<tr><td class="ex-name">Men's practice</td><td class="ex-sets">1</td><td class="ex-reps">90-100 min</td><td class="ex-tempo">match</td><td class="ex-load">—</td><td class="ex-note">Full</td></tr>
+</tbody></table></div>
+
+<div class="day"><div class="day-header"><span class="day-name">Sun</span><span class="day-focus">Full Rest</span><span class="day-tag rest">REST</span></div></div>
+</div></div>
+
+<div class="week">
+<div class="week-header"><span class="week-num">W11</span><span class="week-name">Conditioning Spike</span><span class="week-progression">Jul 14 — Jul 20 // 3 bball sessions, push capacity</span></div>
+<div class="days">
+
+<div class="day"><div class="day-header"><span class="day-name">Mon</span><span class="day-focus">Power + Lower Strength</span><span class="day-tag">POWER</span></div>
+<table class="exercises"><thead><tr><th>Exercise</th><th>Sets</th><th>Reps</th><th>Tempo</th><th>Load</th><th>Note</th></tr></thead>
+<tbody>
+<tr><td class="ex-name">Hang power clean</td><td class="ex-sets">5</td><td class="ex-reps">2</td><td class="ex-tempo">explosive</td><td class="ex-load">85 kg</td><td class="ex-note">Heavy doubles</td></tr>
+<tr><td class="ex-name">Approach jumps (vary takeoff)</td><td class="ex-sets">5</td><td class="ex-reps">2</td><td class="ex-tempo">max</td><td class="ex-load">BW</td><td class="ex-note">Mix L-R / R-L</td></tr>
+<tr><td class="ex-name">Back squat</td><td class="ex-sets">4</td><td class="ex-reps">3</td><td class="ex-tempo">2-1-1</td><td class="ex-load">117.5 kg</td><td class="ex-note">+2.5</td></tr>
+<tr><td class="ex-name">Romanian deadlift</td><td class="ex-sets">3</td><td class="ex-reps">5</td><td class="ex-tempo">3-1-1</td><td class="ex-load">122.5 kg</td><td class="ex-note">+2.5</td></tr>
+<tr><td class="ex-name">Bulgarian split squat</td><td class="ex-sets">3</td><td class="ex-reps">5/side</td><td class="ex-tempo">3-1-1</td><td class="ex-load">35 kg/hand</td><td class="ex-note">+2.5</td></tr>
+</tbody></table></div>
+
+<div class="day"><div class="day-header"><span class="day-name">Tue</span><span class="day-focus">Upper Push + Repeat Sprint</span><span class="day-tag">UPPER</span></div>
+<table class="exercises"><thead><tr><th>Exercise</th><th>Sets</th><th>Reps</th><th>Tempo</th><th>Load</th><th>Note</th></tr></thead>
+<tbody>
+<tr><td class="ex-name">Bench press</td><td class="ex-sets">5</td><td class="ex-reps">3</td><td class="ex-tempo">2-0-1</td><td class="ex-load">97.5 kg</td><td class="ex-note">+2.5</td></tr>
+<tr><td class="ex-name">Standing OHP</td><td class="ex-sets">4</td><td class="ex-reps">4</td><td class="ex-tempo">2-1-1</td><td class="ex-load">60 kg</td><td class="ex-note">+2.5</td></tr>
+<tr><td class="ex-name">Repeat sprint (full court)</td><td class="ex-sets">8</td><td class="ex-reps">28m</td><td class="ex-tempo">max</td><td class="ex-load">—</td><td class="ex-note">30s rest</td></tr>
+<tr><td class="ex-name">Slide-recover-sprint</td><td class="ex-sets">5</td><td class="ex-reps">3 each</td><td class="ex-tempo">max</td><td class="ex-load">—</td><td class="ex-note">Game-specific</td></tr>
+</tbody></table></div>
+
+<div class="day"><div class="day-header"><span class="day-name">Wed</span><span class="day-focus">U18 Practice</span><span class="day-tag bball">BBALL</span></div>
+<table class="exercises"><thead><tr><th>Exercise</th><th>Sets</th><th>Reps</th><th>Tempo</th><th>Load</th><th>Note</th></tr></thead>
+<tbody>
+<tr><td class="ex-name">U18 practice</td><td class="ex-sets">1</td><td class="ex-reps">100 min</td><td class="ex-tempo">match</td><td class="ex-load">—</td><td class="ex-note">Out-run them</td></tr>
+</tbody></table></div>
+
+<div class="day"><div class="day-header"><span class="day-name">Thu</span><span class="day-focus">Plyo + Posterior Power</span><span class="day-tag">POWER</span></div>
+<table class="exercises"><thead><tr><th>Exercise</th><th>Sets</th><th>Reps</th><th>Tempo</th><th>Load</th><th>Note</th></tr></thead>
+<tbody>
+<tr><td class="ex-name">Depth jump</td><td class="ex-sets">4</td><td class="ex-reps">4</td><td class="ex-tempo">rebound</td><td class="ex-load">BW</td><td class="ex-note">Quality</td></tr>
+<tr><td class="ex-name">Weighted vest jump</td><td class="ex-sets">3</td><td class="ex-reps">3</td><td class="ex-tempo">max</td><td class="ex-load">+10 kg vest</td><td class="ex-note">Strength-power</td></tr>
+<tr><td class="ex-name">Single-leg bound</td><td class="ex-sets">3</td><td class="ex-reps">6/side</td><td class="ex-tempo">explosive</td><td class="ex-load">BW</td><td class="ex-note">Distance</td></tr>
+<tr><td class="ex-name">Deadlift</td><td class="ex-sets">5</td><td class="ex-reps">3</td><td class="ex-tempo">2-0-1</td><td class="ex-load">132.5 kg</td><td class="ex-note">+2.5</td></tr>
+<tr><td class="ex-name">Reverse lunge</td><td class="ex-sets">3</td><td class="ex-reps">5/side</td><td class="ex-tempo">3-1-2</td><td class="ex-load">37.5 kg/hand</td><td class="ex-note">+2.5</td></tr>
+<tr><td class="ex-name">Hip thrust</td><td class="ex-sets">3</td><td class="ex-reps">5</td><td class="ex-tempo">2-1-1</td><td class="ex-load">150 kg</td><td class="ex-note">+5</td></tr>
+</tbody></table></div>
+
+<div class="day"><div class="day-header"><span class="day-name">Fri</span><span class="day-focus">Upper Pull + Sled</span><span class="day-tag">UPPER</span></div>
+<table class="exercises"><thead><tr><th>Exercise</th><th>Sets</th><th>Reps</th><th>Tempo</th><th>Load</th><th>Note</th></tr></thead>
+<tbody>
+<tr><td class="ex-name">Pull-ups</td><td class="ex-sets">5</td><td class="ex-reps">4</td><td class="ex-tempo">2-1-2</td><td class="ex-load">+22.5 kg</td><td class="ex-note">+2.5</td></tr>
+<tr><td class="ex-name">Barbell row</td><td class="ex-sets">4</td><td class="ex-reps">5</td><td class="ex-tempo">2-1-2</td><td class="ex-load">92.5 kg</td><td class="ex-note">+2.5</td></tr>
+<tr><td class="ex-name">Sled push (light, fast)</td><td class="ex-sets">8</td><td class="ex-reps">15m</td><td class="ex-tempo">sprint</td><td class="ex-load">+30 kg</td><td class="ex-note">Speed bias</td></tr>
+<tr><td class="ex-name">Sled drag backwards</td><td class="ex-sets">3</td><td class="ex-reps">20m</td><td class="ex-tempo">controlled</td><td class="ex-load">+50 kg</td><td class="ex-note">+5</td></tr>
+</tbody></table></div>
+
+<div class="day"><div class="day-header"><span class="day-name">Sat</span><span class="day-focus">Men's Practice — Lead</span><span class="day-tag bball">BBALL</span></div>
+<table class="exercises"><thead><tr><th>Exercise</th><th>Sets</th><th>Reps</th><th>Tempo</th><th>Load</th><th>Note</th></tr></thead>
+<tbody>
+<tr><td class="ex-name">Men's practice</td><td class="ex-sets">1</td><td class="ex-reps">100 min</td><td class="ex-tempo">match</td><td class="ex-load">—</td><td class="ex-note">Be a leader</td></tr>
+</tbody></table></div>
+
+<div class="day"><div class="day-header"><span class="day-name">Sun</span><span class="day-focus">Full Rest</span><span class="day-tag rest">REST</span></div></div>
+</div></div>
+
+<div class="week">
+<div class="week-header"><span class="week-num">W12</span><span class="week-name">Power Peak Test</span><span class="week-progression">Jul 21 — Jul 27 // Jump retest + 1RM probes</span></div>
+<div class="days">
+
+<div class="day"><div class="day-header"><span class="day-name">Mon</span><span class="day-focus">Squat Probe + Light Power</span><span class="day-tag">TEST</span></div>
+<table class="exercises"><thead><tr><th>Exercise</th><th>Sets</th><th>Reps</th><th>Tempo</th><th>Load</th><th>Note</th></tr></thead>
+<tbody>
+<tr><td class="ex-name">Hang power clean</td><td class="ex-sets">3</td><td class="ex-reps">2</td><td class="ex-tempo">explosive</td><td class="ex-load">75 kg</td><td class="ex-note">Speed only</td></tr>
+<tr><td class="ex-name">Back squat warmup</td><td class="ex-sets">5</td><td class="ex-reps">5,3,2,1,1</td><td class="ex-tempo">2-1-1</td><td class="ex-load">60→120</td><td class="ex-note">Ramp</td></tr>
+<tr><td class="ex-name">Back squat 1RM</td><td class="ex-sets">3</td><td class="ex-reps">1</td><td class="ex-tempo">2-1-1</td><td class="ex-load">135, 140, 145</td><td class="ex-note">Target ≥ 140 kg</td></tr>
+<tr><td class="ex-name">Hip thrust</td><td class="ex-sets">3</td><td class="ex-reps">5</td><td class="ex-tempo">2-1-1</td><td class="ex-load">150 kg</td><td class="ex-note">Maintenance</td></tr>
+</tbody></table></div>
+
+<div class="day"><div class="day-header"><span class="day-name">Tue</span><span class="day-focus">Vertical Jump Test (full battery)</span><span class="day-tag">TEST</span></div>
+<table class="exercises"><thead><tr><th>Exercise</th><th>Sets</th><th>Reps</th><th>Tempo</th><th>Load</th><th>Note</th></tr></thead>
+<tbody>
+<tr><td class="ex-name">Pogo warmup</td><td class="ex-sets">2</td><td class="ex-reps">8</td><td class="ex-tempo">stiff</td><td class="ex-load">BW</td><td class="ex-note">CNS prime</td></tr>
+<tr><td class="ex-name">Standing 2-foot</td><td class="ex-sets">3</td><td class="ex-reps">1</td><td class="ex-tempo">max</td><td class="ex-load">BW</td><td class="ex-note">Log</td></tr>
+<tr><td class="ex-name">Approach 2-foot (R-L &amp; L-R)</td><td class="ex-sets">5</td><td class="ex-reps">1 each</td><td class="ex-tempo">max</td><td class="ex-load">BW</td><td class="ex-note">Target 78 cm</td></tr>
+<tr><td class="ex-name">Approach 1-foot L</td><td class="ex-sets">3</td><td class="ex-reps">1</td><td class="ex-tempo">max</td><td class="ex-load">BW</td><td class="ex-note">Target 70 cm</td></tr>
+<tr><td class="ex-name">Approach 1-foot R</td><td class="ex-sets">3</td><td class="ex-reps">1</td><td class="ex-tempo">max</td><td class="ex-load">BW</td><td class="ex-note">Target 75 cm</td></tr>
+<tr><td class="ex-name">Broad jump test</td><td class="ex-sets">3</td><td class="ex-reps">1</td><td class="ex-tempo">max</td><td class="ex-load">BW</td><td class="ex-note">Log</td></tr>
+</tbody></table></div>
+
+<div class="day"><div class="day-header"><span class="day-name">Wed</span><span class="day-focus">U18 Practice + Recovery</span><span class="day-tag bball">BBALL</span></div>
+<table class="exercises"><thead><tr><th>Exercise</th><th>Sets</th><th>Reps</th><th>Tempo</th><th>Load</th><th>Note</th></tr></thead>
+<tbody>
+<tr><td class="ex-name">U18 practice</td><td class="ex-sets">1</td><td class="ex-reps">90 min</td><td class="ex-tempo">match</td><td class="ex-load">—</td><td class="ex-note">Conditioning probe</td></tr>
+<tr><td class="ex-name">Glute medius circuit</td><td class="ex-sets">2</td><td class="ex-reps">full</td><td class="ex-tempo">controlled</td><td class="ex-load">BW</td><td class="ex-note">Cooldown</td></tr>
+</tbody></table></div>
+
+<div class="day"><div class="day-header"><span class="day-name">Thu</span><span class="day-focus">Deadlift Probe + Light Plyo</span><span class="day-tag">TEST</span></div>
+<table class="exercises"><thead><tr><th>Exercise</th><th>Sets</th><th>Reps</th><th>Tempo</th><th>Load</th><th>Note</th></tr></thead>
+<tbody>
+<tr><td class="ex-name">Deadlift warmup</td><td class="ex-sets">5</td><td class="ex-reps">5,3,2,1,1</td><td class="ex-tempo">2-0-1</td><td class="ex-load">70→130</td><td class="ex-note">Ramp</td></tr>
+<tr><td class="ex-name">Deadlift 1RM</td><td class="ex-sets">3</td><td class="ex-reps">1</td><td class="ex-tempo">2-0-1</td><td class="ex-load">155, 165, 170</td><td class="ex-note">Target ≥ 165 kg</td></tr>
+<tr><td class="ex-name">Single-leg bound (light)</td><td class="ex-sets">2</td><td class="ex-reps">5/side</td><td class="ex-tempo">moderate</td><td class="ex-load">BW</td><td class="ex-note">Maintenance</td></tr>
+</tbody></table></div>
+
+<div class="day"><div class="day-header"><span class="day-name">Fri</span><span class="day-focus">Upper Power-Strength</span><span class="day-tag">UPPER</span></div>
+<table class="exercises"><thead><tr><th>Exercise</th><th>Sets</th><th>Reps</th><th>Tempo</th><th>Load</th><th>Note</th></tr></thead>
+<tbody>
+<tr><td class="ex-name">Bench 1RM</td><td class="ex-sets">3</td><td class="ex-reps">1</td><td class="ex-tempo">2-1-1</td><td class="ex-load">107.5, 112.5, 115</td><td class="ex-note">Target ≥ 112.5 kg</td></tr>
+<tr><td class="ex-name">Pull-ups (max BW)</td><td class="ex-sets">3</td><td class="ex-reps">AMRAP</td><td class="ex-tempo">2-1-2</td><td class="ex-load">BW</td><td class="ex-note">Target 14+</td></tr>
+<tr><td class="ex-name">Standing OHP test</td><td class="ex-sets">3</td><td class="ex-reps">3</td><td class="ex-tempo">2-1-1</td><td class="ex-load">62.5 kg</td><td class="ex-note">3RM probe</td></tr>
+</tbody></table></div>
+
+<div class="day"><div class="day-header"><span class="day-name">Sat</span><span class="day-focus">Men's Scrimmage</span><span class="day-tag bball">BBALL</span></div>
+<table class="exercises"><thead><tr><th>Exercise</th><th>Sets</th><th>Reps</th><th>Tempo</th><th>Load</th><th>Note</th></tr></thead>
+<tbody>
+<tr><td class="ex-name">Men's practice / scrimmage</td><td class="ex-sets">1</td><td class="ex-reps">100 min</td><td class="ex-tempo">match</td><td class="ex-load">—</td><td class="ex-note">Apply Phase 3 work</td></tr>
+</tbody></table></div>
+
+<div class="day"><div class="day-header"><span class="day-name">Sun</span><span class="day-focus">Full Rest</span><span class="day-tag rest">REST</span></div></div>
+</div></div>
+
+<div class="nutrition-block">
+<div class="nutrition-title">Phase 3 Fuel</div>
+<div class="nutrition-sub">// Performance Maintenance · Body Recomp Continuing</div>
+<div class="macro-grid">
+<div class="macro"><div class="macro-label">Calories</div><div class="macro-value">2900<span class="macro-unit">kcal</span></div></div>
+<div class="macro"><div class="macro-label">Protein</div><div class="macro-value">200<span class="macro-unit">g</span></div></div>
+<div class="macro"><div class="macro-label">Carbs</div><div class="macro-value">370<span class="macro-unit">g</span></div></div>
+<div class="macro"><div class="macro-label">Fat</div><div class="macro-value">70<span class="macro-unit">g</span></div></div>
+</div>
+<ul class="nutrition-rules">
+<li><strong style="color:var(--blood)">CARB UP:</strong> +30g carbs from Phase 2. Power output and conditioning need glycogen.</li>
+<li><strong style="color:var(--blood)">PRE-PRACTICE:</strong> 70-80g carbs 90 min out + 20g protein. Add 30g fast carbs 15 min before.</li>
+<li><strong style="color:var(--blood)">INTRA-PRACTICE:</strong> electrolyte drink with 30-40g carbs during long practices.</li>
+<li><strong style="color:var(--blood)">REST DAYS:</strong> 2600 kcal, 280g carbs. Protein and fat hold.</li>
+<li><strong style="color:var(--blood)">TENDON STACK:</strong> still daily — 15g collagen + vit C before lower work.</li>
+<li><strong style="color:var(--blood)">SLEEP:</strong> 8.5h+ during Phase 3. CNS fatigue is your enemy.</li>
+<li><strong style="color:var(--blood)">WEIGHT:</strong> 89-90 kg AM by end. If body comp is good, hold here.</li>
+</ul>
+</div>
+
+<div class="milestone">
+<div class="milestone-title">Week 12 Checkpoint</div>
+<div class="milestone-grid">
+<div class="milestone-item"><span class="milestone-marker"></span><span class="milestone-text">Squat 1RM <strong>≥ 140 kg</strong> (1.55× BW)</span></div>
+<div class="milestone-item"><span class="milestone-marker"></span><span class="milestone-text">Deadlift 1RM <strong>≥ 165 kg</strong></span></div>
+<div class="milestone-item"><span class="milestone-marker"></span><span class="milestone-text">Bench 1RM <strong>≥ 112.5 kg</strong></span></div>
+<div class="milestone-item"><span class="milestone-marker"></span><span class="milestone-text">Approach vertical <strong>78 cm</strong></span></div>
+<div class="milestone-item"><span class="milestone-marker"></span><span class="milestone-text">L/R asymmetry <strong>&lt; 5%</strong></span></div>
+<div class="milestone-item"><span class="milestone-marker"></span><span class="milestone-text">90-min practice + zero pain</span></div>
+<div class="milestone-item"><span class="milestone-marker"></span><span class="milestone-text">Bodyweight <strong>89-90 kg</strong></span></div>
+<div class="milestone-item"><span class="milestone-marker"></span><span class="milestone-text">Out-condition U18 by ~10%</span></div>
+</div>
+</div>
+
+</div>
+</section>
+
+<section class="phase">
+<div class="container">
+<div class="phase-banner">
+<div class="phase-number">04</div>
+<div class="phase-titleblock">
+<div class="phase-tag">// PHASE FOUR / WEEKS 13–16</div>
+<h2 class="phase-title">Sport-Specific<br>Peak</h2>
+<div class="phase-dates">July 28 → August 24</div>
+</div>
+</div>
+<p class="phase-thesis">The work is done. Now we sharpen and peak. <strong>Volume drops, intensity holds, basketball volume rises</strong>. Strength sessions go to two per week (maintenance only — never lose what we built). Plyometrics become specific and competitive: dunk attempts, full-court contact reps, basketball-context jumps. By August 24, the body must look ready, move ready, and feel hungry. Final taper week (Aug 25–31) deload and walk into preseason fresh.</p>
+<div class="callout warning">
+<div class="callout-title">// Peak Discipline</div>
+<div class="callout-text">Resist the urge to do MORE in Phase 4. The temptation is huge with the season approaching. Trust the work that's banked. More now means flat legs in September. <strong>Two lifts a week. Two plyo sessions. Three to four basketball sessions. Done.</strong></div>
+</div>
+
+<div class="week">
+<div class="week-header"><span class="week-num">W13</span><span class="week-name">Sharpen — Specific Plyo</span><span class="week-progression">Jul 28 — Aug 3 // Drop strength volume 25%</span></div>
+<div class="days">
+
+<div class="day"><div class="day-header"><span class="day-name">Mon</span><span class="day-focus">Power-Strength + Specific Plyo</span><span class="day-tag">POWER</span></div>
+<table class="exercises"><thead><tr><th>Exercise</th><th>Sets</th><th>Reps</th><th>Tempo</th><th>Load</th><th>Note</th></tr></thead>
+<tbody>
+<tr><td class="ex-name">Pogo (warm-up)</td><td class="ex-sets">2</td><td class="ex-reps">8</td><td class="ex-tempo">stiff</td><td class="ex-load">BW</td><td class="ex-note">CNS prime</td></tr>
+<tr><td class="ex-name">Hang power clean</td><td class="ex-sets">4</td><td class="ex-reps">2</td><td class="ex-tempo">explosive</td><td class="ex-load">82.5 kg</td><td class="ex-note">Speed bias</td></tr>
+<tr><td class="ex-name">Approach jump (rim grab)</td><td class="ex-sets">5</td><td class="ex-reps">3</td><td class="ex-tempo">max</td><td class="ex-load">BW</td><td class="ex-note">Aim above rim</td></tr>
+<tr><td class="ex-name">Back squat</td><td class="ex-sets">3</td><td class="ex-reps">3</td><td class="ex-tempo">2-1-1</td><td class="ex-load">120 kg</td><td class="ex-note">Reduced volume</td></tr>
+<tr><td class="ex-name">Romanian deadlift</td><td class="ex-sets">3</td><td class="ex-reps">5</td><td class="ex-tempo">3-1-1</td><td class="ex-load">125 kg</td><td class="ex-note">+2.5</td></tr>
+<tr><td class="ex-name">Bulgarian split squat</td><td class="ex-sets">2</td><td class="ex-reps">5/side</td><td class="ex-tempo">3-1-1</td><td class="ex-load">35 kg/hand</td><td class="ex-note">Maintain</td></tr>
+<tr><td class="ex-name">Copenhagen plank</td><td class="ex-sets">3</td><td class="ex-reps">45s/side</td><td class="ex-tempo">hold</td><td class="ex-load">BW</td><td class="ex-note">Maintain</td></tr>
+</tbody></table></div>
+
+<div class="day"><div class="day-header"><span class="day-name">Tue</span><span class="day-focus">Men's Practice (Pre-season Energy)</span><span class="day-tag bball">BBALL</span></div>
+<table class="exercises"><thead><tr><th>Exercise</th><th>Sets</th><th>Reps</th><th>Tempo</th><th>Load</th><th>Note</th></tr></thead>
+<tbody>
+<tr><td class="ex-name">Men's practice</td><td class="ex-sets">1</td><td class="ex-reps">100 min</td><td class="ex-tempo">match</td><td class="ex-load">—</td><td class="ex-note">Game intensity</td></tr>
+<tr><td class="ex-name">Free throws under fatigue</td><td class="ex-sets">5</td><td class="ex-reps">10</td><td class="ex-tempo">routine</td><td class="ex-load">BW</td><td class="ex-note">Track %</td></tr>
+</tbody></table></div>
+
+<div class="day"><div class="day-header"><span class="day-name">Wed</span><span class="day-focus">Upper Maintain + Repeat Sprint</span><span class="day-tag">UPPER</span></div>
+<table class="exercises"><thead><tr><th>Exercise</th><th>Sets</th><th>Reps</th><th>Tempo</th><th>Load</th><th>Note</th></tr></thead>
+<tbody>
+<tr><td class="ex-name">Bench press</td><td class="ex-sets">4</td><td class="ex-reps">3</td><td class="ex-tempo">2-0-1</td><td class="ex-load">100 kg</td><td class="ex-note">Speed</td></tr>
+<tr><td class="ex-name">Pull-ups (weighted)</td><td class="ex-sets">4</td><td class="ex-reps">4</td><td class="ex-tempo">2-1-2</td><td class="ex-load">+22.5 kg</td><td class="ex-note">Maintain</td></tr>
+<tr><td class="ex-name">Standing OHP</td><td class="ex-sets">3</td><td class="ex-reps">4</td><td class="ex-tempo">2-1-1</td><td class="ex-load">60 kg</td><td class="ex-note">Maintain</td></tr>
+<tr><td class="ex-name">Repeat sprint (court length)</td><td class="ex-sets">10</td><td class="ex-reps">28m</td><td class="ex-tempo">max</td><td class="ex-load">—</td><td class="ex-note">25s rest, drop time</td></tr>
+<tr><td class="ex-name">Defensive slide-sprint</td><td class="ex-sets">5</td><td class="ex-reps">3 each</td><td class="ex-tempo">max</td><td class="ex-load">—</td><td class="ex-note">Game-specific</td></tr>
+</tbody></table></div>
+
+<div class="day"><div class="day-header"><span class="day-name">Thu</span><span class="day-focus">Plyo (Reactive) + Posterior Maintain</span><span class="day-tag">POWER</span></div>
+<table class="exercises"><thead><tr><th>Exercise</th><th>Sets</th><th>Reps</th><th>Tempo</th><th>Load</th><th>Note</th></tr></thead>
+<tbody>
+<tr><td class="ex-name">Depth jump (45cm)</td><td class="ex-sets">4</td><td class="ex-reps">3</td><td class="ex-tempo">rebound</td><td class="ex-load">BW</td><td class="ex-note">Reactive bias</td></tr>
+<tr><td class="ex-name">Single-leg bound (L)</td><td class="ex-sets">3</td><td class="ex-reps">5</td><td class="ex-tempo">explosive</td><td class="ex-load">BW</td><td class="ex-note">Distance</td></tr>
+<tr><td class="ex-name">Single-leg bound (R)</td><td class="ex-sets">3</td><td class="ex-reps">5</td><td class="ex-tempo">explosive</td><td class="ex-load">BW</td><td class="ex-note">Match L</td></tr>
+<tr><td class="ex-name">Conventional deadlift</td><td class="ex-sets">3</td><td class="ex-reps">3</td><td class="ex-tempo">2-0-1</td><td class="ex-load">135 kg</td><td class="ex-note">Reduced volume</td></tr>
+<tr><td class="ex-name">Reverse lunge</td><td class="ex-sets">2</td><td class="ex-reps">5/side</td><td class="ex-tempo">3-1-2</td><td class="ex-load">37.5 kg/hand</td><td class="ex-note">Maintain</td></tr>
+<tr><td class="ex-name">Hip thrust</td><td class="ex-sets">3</td><td class="ex-reps">5</td><td class="ex-tempo">2-1-1</td><td class="ex-load">150 kg</td><td class="ex-note">Maintain</td></tr>
+<tr><td class="ex-name">Single-leg calf</td><td class="ex-sets">3</td><td class="ex-reps">8/side</td><td class="ex-tempo">3-2-3</td><td class="ex-load">32.5 kg DB</td><td class="ex-note">Maintain</td></tr>
+</tbody></table></div>
+
+<div class="day"><div class="day-header"><span class="day-name">Fri</span><span class="day-focus">Skill + Light Conditioning</span><span class="day-tag bball">SKILL</span></div>
+<table class="exercises"><thead><tr><th>Exercise</th><th>Sets</th><th>Reps</th><th>Tempo</th><th>Load</th><th>Note</th></tr></thead>
+<tbody>
+<tr><td class="ex-name">Skill + game-shot reps</td><td class="ex-sets">—</td><td class="ex-reps">60 min</td><td class="ex-tempo">flow</td><td class="ex-load">BW</td><td class="ex-note">Game-speed</td></tr>
+<tr><td class="ex-name">Tempo runs (court)</td><td class="ex-sets">6</td><td class="ex-reps">75% effort</td><td class="ex-tempo">28m</td><td class="ex-load">—</td><td class="ex-note">Aerobic flush</td></tr>
+</tbody></table></div>
+
+<div class="day"><div class="day-header"><span class="day-name">Sat</span><span class="day-focus">U18 Full + Free Throws</span><span class="day-tag bball">BBALL</span></div>
+<table class="exercises"><thead><tr><th>Exercise</th><th>Sets</th><th>Reps</th><th>Tempo</th><th>Load</th><th>Note</th></tr></thead>
+<tbody>
+<tr><td class="ex-name">U18 practice</td><td class="ex-sets">1</td><td class="ex-reps">90 min</td><td class="ex-tempo">match</td><td class="ex-load">—</td><td class="ex-note">Beat their pace</td></tr>
+</tbody></table></div>
+
+<div class="day"><div class="day-header"><span class="day-name">Sun</span><span class="day-focus">Full Rest</span><span class="day-tag rest">REST</span></div></div>
+</div></div>
+
+<div class="week">
+<div class="week-header"><span class="week-num">W14</span><span class="week-name">Game Speed</span><span class="week-progression">Aug 4 — Aug 10 // 4 bball sessions, intensity holds</span></div>
+<div class="days">
+
+<div class="day"><div class="day-header"><span class="day-name">Mon</span><span class="day-focus">Power Maintain + Lower</span><span class="day-tag">POWER</span></div>
+<table class="exercises"><thead><tr><th>Exercise</th><th>Sets</th><th>Reps</th><th>Tempo</th><th>Load</th><th>Note</th></tr></thead>
+<tbody>
+<tr><td class="ex-name">Hang power clean</td><td class="ex-sets">4</td><td class="ex-reps">2</td><td class="ex-tempo">explosive</td><td class="ex-load">85 kg</td><td class="ex-note">+2.5</td></tr>
+<tr><td class="ex-name">Approach jump (above rim attempts)</td><td class="ex-sets">6</td><td class="ex-reps">2</td><td class="ex-tempo">max</td><td class="ex-load">BW</td><td class="ex-note">Dunk attempts ok</td></tr>
+<tr><td class="ex-name">Back squat</td><td class="ex-sets">3</td><td class="ex-reps">3</td><td class="ex-tempo">2-1-1</td><td class="ex-load">122.5 kg</td><td class="ex-note">+2.5</td></tr>
+<tr><td class="ex-name">Romanian deadlift</td><td class="ex-sets">3</td><td class="ex-reps">5</td><td class="ex-tempo">3-1-1</td><td class="ex-load">127.5 kg</td><td class="ex-note">+2.5</td></tr>
+<tr><td class="ex-name">Bulgarian split squat</td><td class="ex-sets">2</td><td class="ex-reps">5/side</td><td class="ex-tempo">3-1-1</td><td class="ex-load">37.5 kg/hand</td><td class="ex-note">+2.5</td></tr>
+</tbody></table></div>
+
+<div class="day"><div class="day-header"><span class="day-name">Tue</span><span class="day-focus">Men's Practice — Full Effort</span><span class="day-tag bball">BBALL</span></div>
+<table class="exercises"><thead><tr><th>Exercise</th><th>Sets</th><th>Reps</th><th>Tempo</th><th>Load</th><th>Note</th></tr></thead>
+<tbody>
+<tr><td class="ex-name">Men's practice</td><td class="ex-sets">1</td><td class="ex-reps">100 min</td><td class="ex-tempo">match</td><td class="ex-load">—</td><td class="ex-note">Lead the pace</td></tr>
+</tbody></table></div>
+
+<div class="day"><div class="day-header"><span class="day-name">Wed</span><span class="day-focus">Upper + Repeat Sprint</span><span class="day-tag">UPPER</span></div>
+<table class="exercises"><thead><tr><th>Exercise</th><th>Sets</th><th>Reps</th><th>Tempo</th><th>Load</th><th>Note</th></tr></thead>
+<tbody>
+<tr><td class="ex-name">Bench press</td><td class="ex-sets">4</td><td class="ex-reps">3</td><td class="ex-tempo">2-0-1</td><td class="ex-load">102.5 kg</td><td class="ex-note">+2.5</td></tr>
+<tr><td class="ex-name">Pull-ups (weighted)</td><td class="ex-sets">4</td><td class="ex-reps">4</td><td class="ex-tempo">2-1-2</td><td class="ex-load">+25 kg</td><td class="ex-note">+2.5</td></tr>
+<tr><td class="ex-name">Standing OHP</td><td class="ex-sets">3</td><td class="ex-reps">4</td><td class="ex-tempo">2-1-1</td><td class="ex-load">62.5 kg</td><td class="ex-note">+2.5</td></tr>
+<tr><td class="ex-name">Repeat sprint</td><td class="ex-sets">12</td><td class="ex-reps">28m</td><td class="ex-tempo">max</td><td class="ex-load">—</td><td class="ex-note">20s rest, +2 reps</td></tr>
+</tbody></table></div>
+
+<div class="day"><div class="day-header"><span class="day-name">Thu</span><span class="day-focus">U18 Practice (High Pace)</span><span class="day-tag bball">BBALL</span></div>
+<table class="exercises"><thead><tr><th>Exercise</th><th>Sets</th><th>Reps</th><th>Tempo</th><th>Load</th><th>Note</th></tr></thead>
+<tbody>
+<tr><td class="ex-name">U18 practice</td><td class="ex-sets">1</td><td class="ex-reps">100 min</td><td class="ex-tempo">match</td><td class="ex-load">—</td><td class="ex-note">Out-condition</td></tr>
+</tbody></table></div>
+
+<div class="day"><div class="day-header"><span class="day-name">Fri</span><span class="day-focus">Plyo + Posterior Maintain</span><span class="day-tag">POWER</span></div>
+<table class="exercises"><thead><tr><th>Exercise</th><th>Sets</th><th>Reps</th><th>Tempo</th><th>Load</th><th>Note</th></tr></thead>
+<tbody>
+<tr><td class="ex-name">Depth jump</td><td class="ex-sets">4</td><td class="ex-reps">3</td><td class="ex-tempo">rebound</td><td class="ex-load">BW</td><td class="ex-note">Reactive</td></tr>
+<tr><td class="ex-name">Approach 1-foot (both legs)</td><td class="ex-sets">5</td><td class="ex-reps">2/side</td><td class="ex-tempo">max</td><td class="ex-load">BW</td><td class="ex-note">Match L=R</td></tr>
+<tr><td class="ex-name">Conventional deadlift</td><td class="ex-sets">3</td><td class="ex-reps">3</td><td class="ex-tempo">2-0-1</td><td class="ex-load">137.5 kg</td><td class="ex-note">+2.5</td></tr>
+<tr><td class="ex-name">Hip thrust</td><td class="ex-sets">3</td><td class="ex-reps">5</td><td class="ex-tempo">2-1-1</td><td class="ex-load">152.5 kg</td><td class="ex-note">+2.5</td></tr>
+<tr><td class="ex-name">Single-leg calf</td><td class="ex-sets">3</td><td class="ex-reps">8/side</td><td class="ex-tempo">3-2-3</td><td class="ex-load">35 kg DB</td><td class="ex-note">+2.5</td></tr>
+</tbody></table></div>
+
+<div class="day"><div class="day-header"><span class="day-name">Sat</span><span class="day-focus">Men's Scrimmage / Pickup</span><span class="day-tag bball">BBALL</span></div>
+<table class="exercises"><thead><tr><th>Exercise</th><th>Sets</th><th>Reps</th><th>Tempo</th><th>Load</th><th>Note</th></tr></thead>
+<tbody>
+<tr><td class="ex-name">Men's practice / 5v5</td><td class="ex-sets">1</td><td class="ex-reps">100 min</td><td class="ex-tempo">match</td><td class="ex-load">—</td><td class="ex-note">Game reps</td></tr>
+</tbody></table></div>
+
+<div class="day"><div class="day-header"><span class="day-name">Sun</span><span class="day-focus">Full Rest</span><span class="day-tag rest">REST</span></div></div>
+</div></div>
+
+<div class="week">
+<div class="week-header"><span class="week-num">W15</span><span class="week-name">Final Push</span><span class="week-progression">Aug 11 — Aug 17 // Last hard week, then taper</span></div>
+<div class="days">
+
+<div class="day"><div class="day-header"><span class="day-name">Mon</span><span class="day-focus">Power Maintain + Lower</span><span class="day-tag">POWER</span></div>
+<table class="exercises"><thead><tr><th>Exercise</th><th>Sets</th><th>Reps</th><th>Tempo</th><th>Load</th><th>Note</th></tr></thead>
+<tbody>
+<tr><td class="ex-name">Hang power clean</td><td class="ex-sets">4</td><td class="ex-reps">2</td><td class="ex-tempo">explosive</td><td class="ex-load">87.5 kg</td><td class="ex-note">+2.5</td></tr>
+<tr><td class="ex-name">Approach jump</td><td class="ex-sets">5</td><td class="ex-reps">2</td><td class="ex-tempo">max</td><td class="ex-load">BW</td><td class="ex-note">Dunk attempts</td></tr>
+<tr><td class="ex-name">Back squat</td><td class="ex-sets">3</td><td class="ex-reps">2</td><td class="ex-tempo">2-1-1</td><td class="ex-load">130 kg</td><td class="ex-note">Heavy doubles</td></tr>
+<tr><td class="ex-name">Romanian deadlift</td><td class="ex-sets">3</td><td class="ex-reps">5</td><td class="ex-tempo">3-1-1</td><td class="ex-load">130 kg</td><td class="ex-note">+2.5</td></tr>
+<tr><td class="ex-name">Bulgarian split squat</td><td class="ex-sets">2</td><td class="ex-reps">5/side</td><td class="ex-tempo">3-1-1</td><td class="ex-load">40 kg/hand</td><td class="ex-note">+2.5</td></tr>
+</tbody></table></div>
+
+<div class="day"><div class="day-header"><span class="day-name">Tue</span><span class="day-focus">Men's Practice</span><span class="day-tag bball">BBALL</span></div>
+<table class="exercises"><thead><tr><th>Exercise</th><th>Sets</th><th>Reps</th><th>Tempo</th><th>Load</th><th>Note</th></tr></thead>
+<tbody>
+<tr><td class="ex-name">Men's practice</td><td class="ex-sets">1</td><td class="ex-reps">100 min</td><td class="ex-tempo">match</td><td class="ex-load">—</td><td class="ex-note">Game energy</td></tr>
+</tbody></table></div>
+
+<div class="day"><div class="day-header"><span class="day-name">Wed</span><span class="day-focus">Upper Heavy + Conditioning</span><span class="day-tag">UPPER</span></div>
+<table class="exercises"><thead><tr><th>Exercise</th><th>Sets</th><th>Reps</th><th>Tempo</th><th>Load</th><th>Note</th></tr></thead>
+<tbody>
+<tr><td class="ex-name">Bench press</td><td class="ex-sets">4</td><td class="ex-reps">2</td><td class="ex-tempo">2-0-1</td><td class="ex-load">107.5 kg</td><td class="ex-note">Heavy doubles</td></tr>
+<tr><td class="ex-name">Pull-ups (weighted)</td><td class="ex-sets">4</td><td class="ex-reps">3</td><td class="ex-tempo">2-1-2</td><td class="ex-load">+27.5 kg</td><td class="ex-note">+2.5</td></tr>
+<tr><td class="ex-name">Standing OHP</td><td class="ex-sets">3</td><td class="ex-reps">3</td><td class="ex-tempo">2-1-1</td><td class="ex-load">65 kg</td><td class="ex-note">+2.5</td></tr>
+<tr><td class="ex-name">17s</td><td class="ex-sets">5</td><td class="ex-reps">17 lines/60s</td><td class="ex-tempo">max</td><td class="ex-load">—</td><td class="ex-note">Conditioning peak</td></tr>
+</tbody></table></div>
+
+<div class="day"><div class="day-header"><span class="day-name">Thu</span><span class="day-focus">U18 Practice</span><span class="day-tag bball">BBALL</span></div>
+<table class="exercises"><thead><tr><th>Exercise</th><th>Sets</th><th>Reps</th><th>Tempo</th><th>Load</th><th>Note</th></tr></thead>
+<tbody>
+<tr><td class="ex-name">U18 practice</td><td class="ex-sets">1</td><td class="ex-reps">100 min</td><td class="ex-tempo">match</td><td class="ex-load">—</td><td class="ex-note">Lead pace</td></tr>
+</tbody></table></div>
+
+<div class="day"><div class="day-header"><span class="day-name">Fri</span><span class="day-focus">Plyo + Posterior</span><span class="day-tag">POWER</span></div>
+<table class="exercises"><thead><tr><th>Exercise</th><th>Sets</th><th>Reps</th><th>Tempo</th><th>Load</th><th>Note</th></tr></thead>
+<tbody>
+<tr><td class="ex-name">Depth jump</td><td class="ex-sets">4</td><td class="ex-reps">3</td><td class="ex-tempo">rebound</td><td class="ex-load">BW</td><td class="ex-note">Reactive</td></tr>
+<tr><td class="ex-name">Single-leg bound</td><td class="ex-sets">3</td><td class="ex-reps">5/side</td><td class="ex-tempo">explosive</td><td class="ex-load">BW</td><td class="ex-note">Distance</td></tr>
+<tr><td class="ex-name">Deadlift</td><td class="ex-sets">3</td><td class="ex-reps">2</td><td class="ex-tempo">2-0-1</td><td class="ex-load">142.5 kg</td><td class="ex-note">Heavy doubles</td></tr>
+<tr><td class="ex-name">Hip thrust</td><td class="ex-sets">3</td><td class="ex-reps">5</td><td class="ex-tempo">2-1-1</td><td class="ex-load">155 kg</td><td class="ex-note">+2.5</td></tr>
+<tr><td class="ex-name">Single-leg calf</td><td class="ex-sets">3</td><td class="ex-reps">8/side</td><td class="ex-tempo">3-2-3</td><td class="ex-load">37.5 kg DB</td><td class="ex-note">+2.5</td></tr>
+</tbody></table></div>
+
+<div class="day"><div class="day-header"><span class="day-name">Sat</span><span class="day-focus">Men's Scrimmage</span><span class="day-tag bball">BBALL</span></div>
+<table class="exercises"><thead><tr><th>Exercise</th><th>Sets</th><th>Reps</th><th>Tempo</th><th>Load</th><th>Note</th></tr></thead>
+<tbody>
+<tr><td class="ex-name">Men's 5v5</td><td class="ex-sets">1</td><td class="ex-reps">100 min</td><td class="ex-tempo">match</td><td class="ex-load">—</td><td class="ex-note">Apply everything</td></tr>
+</tbody></table></div>
+
+<div class="day"><div class="day-header"><span class="day-name">Sun</span><span class="day-focus">Full Rest</span><span class="day-tag rest">REST</span></div></div>
+</div></div>
+
+<div class="week">
+<div class="week-header"><span class="week-num">W16</span><span class="week-name">Taper &amp; Final Test</span><span class="week-progression">Aug 18 — Aug 24 // Drop volume 50%, peak Wed</span></div>
+<div class="days">
+
+<div class="day"><div class="day-header"><span class="day-name">Mon</span><span class="day-focus">Light Power + Movement</span><span class="day-tag">POWER</span></div>
+<table class="exercises"><thead><tr><th>Exercise</th><th>Sets</th><th>Reps</th><th>Tempo</th><th>Load</th><th>Note</th></tr></thead>
+<tbody>
+<tr><td class="ex-name">Pogo</td><td class="ex-sets">2</td><td class="ex-reps">8</td><td class="ex-tempo">stiff</td><td class="ex-load">BW</td><td class="ex-note">Light prime</td></tr>
+<tr><td class="ex-name">Hang power clean</td><td class="ex-sets">3</td><td class="ex-reps">2</td><td class="ex-tempo">explosive</td><td class="ex-load">75 kg</td><td class="ex-note">Speed only</td></tr>
+<tr><td class="ex-name">Back squat</td><td class="ex-sets">2</td><td class="ex-reps">3</td><td class="ex-tempo">2-1-1</td><td class="ex-load">110 kg</td><td class="ex-note">Light maintenance</td></tr>
+<tr><td class="ex-name">Hip thrust</td><td class="ex-sets">2</td><td class="ex-reps">5</td><td class="ex-tempo">2-1-1</td><td class="ex-load">130 kg</td><td class="ex-note">Light</td></tr>
+</tbody></table></div>
+
+<div class="day"><div class="day-header"><span class="day-name">Tue</span><span class="day-focus">Skill + Free Throws</span><span class="day-tag bball">SKILL</span></div>
+<table class="exercises"><thead><tr><th>Exercise</th><th>Sets</th><th>Reps</th><th>Tempo</th><th>Load</th><th>Note</th></tr></thead>
+<tbody>
+<tr><td class="ex-name">Form shooting + game shots</td><td class="ex-sets">—</td><td class="ex-reps">45 min</td><td class="ex-tempo">flow</td><td class="ex-load">BW</td><td class="ex-note">Sharpen</td></tr>
+<tr><td class="ex-name">Free throws</td><td class="ex-sets">10</td><td class="ex-reps">10</td><td class="ex-tempo">routine</td><td class="ex-load">BW</td><td class="ex-note">100 reps total</td></tr>
+</tbody></table></div>
+
+<div class="day"><div class="day-header"><span class="day-name">Wed</span><span class="day-focus">FINAL TEST DAY</span><span class="day-tag">TEST</span></div>
+<table class="exercises"><thead><tr><th>Exercise</th><th>Sets</th><th>Reps</th><th>Tempo</th><th>Load</th><th>Note</th></tr></thead>
+<tbody>
+<tr><td class="ex-name">Pogo + dynamic warmup</td><td class="ex-sets">3</td><td class="ex-reps">8</td><td class="ex-tempo">stiff</td><td class="ex-load">BW</td><td class="ex-note">CNS prime</td></tr>
+<tr><td class="ex-name">Standing 2-foot vertical</td><td class="ex-sets">3</td><td class="ex-reps">1</td><td class="ex-tempo">max</td><td class="ex-load">BW</td><td class="ex-note">Log final</td></tr>
+<tr><td class="ex-name">Approach 2-foot</td><td class="ex-sets">5</td><td class="ex-reps">1</td><td class="ex-tempo">max</td><td class="ex-load">BW</td><td class="ex-note">TARGET 80+ cm</td></tr>
+<tr><td class="ex-name">Approach 1-foot L</td><td class="ex-sets">3</td><td class="ex-reps">1</td><td class="ex-tempo">max</td><td class="ex-load">BW</td><td class="ex-note">Target 75 cm</td></tr>
+<tr><td class="ex-name">Approach 1-foot R</td><td class="ex-sets">3</td><td class="ex-reps">1</td><td class="ex-tempo">max</td><td class="ex-load">BW</td><td class="ex-note">Target 78 cm</td></tr>
+<tr><td class="ex-name">Squat 1RM (touch)</td><td class="ex-sets">2</td><td class="ex-reps">1</td><td class="ex-tempo">2-1-1</td><td class="ex-load">145, 150 kg</td><td class="ex-note">If feel good</td></tr>
+<tr><td class="ex-name">17s test</td><td class="ex-sets">1</td><td class="ex-reps">17 lines</td><td class="ex-tempo">max</td><td class="ex-load">—</td><td class="ex-note">Conditioning</td></tr>
+</tbody></table></div>
+
+<div class="day"><div class="day-header"><span class="day-name">Thu</span><span class="day-focus">Light Skill / Walk-Through</span><span class="day-tag bball">SKILL</span></div>
+<table class="exercises"><thead><tr><th>Exercise</th><th>Sets</th><th>Reps</th><th>Tempo</th><th>Load</th><th>Note</th></tr></thead>
+<tbody>
+<tr><td class="ex-name">Light shooting + handle</td><td class="ex-sets">—</td><td class="ex-reps">45 min</td><td class="ex-tempo">flow</td><td class="ex-load">BW</td><td class="ex-note">No max effort</td></tr>
+<tr><td class="ex-name">Walk + mobility</td><td class="ex-sets">1</td><td class="ex-reps">30 min</td><td class="ex-tempo">slow</td><td class="ex-load">BW</td><td class="ex-note">Recovery</td></tr>
+</tbody></table></div>
+
+<div class="day"><div class="day-header"><span class="day-name">Fri</span><span class="day-focus">Light Lift + Plyo Touch</span><span class="day-tag">POWER</span></div>
+<table class="exercises"><thead><tr><th>Exercise</th><th>Sets</th><th>Reps</th><th>Tempo</th><th>Load</th><th>Note</th></tr></thead>
+<tbody>
+<tr><td class="ex-name">Pogo</td><td class="ex-sets">2</td><td class="ex-reps">6</td><td class="ex-tempo">stiff</td><td class="ex-load">BW</td><td class="ex-note">Sharp</td></tr>
+<tr><td class="ex-name">Approach jump (3 only)</td><td class="ex-sets">3</td><td class="ex-reps">1</td><td class="ex-tempo">max</td><td class="ex-load">BW</td><td class="ex-note">Touch the spring</td></tr>
+<tr><td class="ex-name">Bench press</td><td class="ex-sets">2</td><td class="ex-reps">3</td><td class="ex-tempo">2-1-1</td><td class="ex-load">85 kg</td><td class="ex-note">Light maintenance</td></tr>
+<tr><td class="ex-name">Pull-ups</td><td class="ex-sets">3</td><td class="ex-reps">5</td><td class="ex-tempo">2-1-2</td><td class="ex-load">BW</td><td class="ex-note">Light</td></tr>
+</tbody></table></div>
+
+<div class="day"><div class="day-header"><span class="day-name">Sat</span><span class="day-focus">5v5 / Pickup (Light)</span><span class="day-tag bball">BBALL</span></div>
+<table class="exercises"><thead><tr><th>Exercise</th><th>Sets</th><th>Reps</th><th>Tempo</th><th>Load</th><th>Note</th></tr></thead>
+<tbody>
+<tr><td class="ex-name">Pickup / scrimmage</td><td class="ex-sets">1</td><td class="ex-reps">75 min</td><td class="ex-tempo">moderate</td><td class="ex-load">—</td><td class="ex-note">Stay sharp, save legs</td></tr>
+</tbody></table></div>
+
+<div class="day"><div class="day-header"><span class="day-name">Sun</span><span class="day-focus">FULL REST — Pre-Season Eve</span><span class="day-tag rest">REST</span></div></div>
+</div></div>
+
+<div class="nutrition-block">
+<div class="nutrition-title">Phase 4 Fuel</div>
+<div class="nutrition-sub">// Performance Maintenance · Carb Up Late Phase</div>
+<div class="macro-grid">
+<div class="macro"><div class="macro-label">Calories</div><div class="macro-value">2950<span class="macro-unit">kcal</span></div></div>
+<div class="macro"><div class="macro-label">Protein</div><div class="macro-value">190<span class="macro-unit">g</span></div></div>
+<div class="macro"><div class="macro-label">Carbs</div><div class="macro-value">400<span class="macro-unit">g</span></div></div>
+<div class="macro"><div class="macro-label">Fat</div><div class="macro-value">65<span class="macro-unit">g</span></div></div>
+</div>
+<ul class="nutrition-rules">
+<li><strong style="color:var(--blood)">CARB EMPHASIS:</strong> 400g/day to fuel multiple basketball sessions. Athletic performance trumps body comp now.</li>
+<li><strong style="color:var(--blood)">PROTEIN ADJUSTED:</strong> 190g/day still high but slight drop — recovery now beats hypertrophy.</li>
+<li><strong style="color:var(--blood)">PRACTICE FUEL:</strong> 80g carbs 90 min before, 30g during, 80-100g + 30g protein within 60 min after.</li>
+<li><strong style="color:var(--blood)">REST DAYS:</strong> 2700 kcal, 320g carbs. No deficit days — full recovery.</li>
+<li><strong style="color:var(--blood)">TENDON STACK:</strong> reduce to 3x/week (lift days). Prevention mode.</li>
+<li><strong style="color:var(--blood)">CREATINE:</strong> hold 5g/day through Phase 4 and into season.</li>
+<li><strong style="color:var(--blood)">FINAL TAPER WEEK (W16):</strong> sleep 9h+, hydrate aggressively, no alcohol, no new foods.</li>
+<li><strong style="color:var(--blood)">WEIGHT TARGET:</strong> 88-89 kg AM by Aug 24. Body fat 18-20%.</li>
+</ul>
+</div>
+
+<div class="milestone">
+<div class="milestone-title">Week 16 Final Standard</div>
+<div class="milestone-grid">
+<div class="milestone-item"><span class="milestone-marker"></span><span class="milestone-text">Approach vertical <strong>≥ 80 cm</strong></span></div>
+<div class="milestone-item"><span class="milestone-marker"></span><span class="milestone-text">L/R asymmetry <strong>&lt; 5%</strong></span></div>
+<div class="milestone-item"><span class="milestone-marker"></span><span class="milestone-text">Squat 1RM <strong>≥ 145 kg</strong> (1.65× BW)</span></div>
+<div class="milestone-item"><span class="milestone-marker"></span><span class="milestone-text">Deadlift 1RM <strong>≥ 170 kg</strong></span></div>
+<div class="milestone-item"><span class="milestone-marker"></span><span class="milestone-text">Bodyweight <strong>88-89 kg</strong></span></div>
+<div class="milestone-item"><span class="milestone-marker"></span><span class="milestone-text">Body fat <strong>18-20%</strong></span></div>
+<div class="milestone-item"><span class="milestone-marker"></span><span class="milestone-text">Touching rim — possibly dunking</span></div>
+<div class="milestone-item"><span class="milestone-marker"></span><span class="milestone-text">100 min practice <strong>without fade</strong></span></div>
+<div class="milestone-item"><span class="milestone-marker"></span><span class="milestone-text">Zero pain in glutes / knees / Achilles</span></div>
+<div class="milestone-item"><span class="milestone-marker"></span><span class="milestone-text">FT% <strong>≥ 80%</strong> under fatigue</span></div>
+</div>
+</div>
+
+</div>
+</section>
+
+<section class="tracking">
+<div class="container">
+<h2>Track. Compare. Adjust.</h2>
+<p style="max-width:700px;font-family:'Oswald',sans-serif;font-weight:300;font-size:16px;line-height:1.7;margin-bottom:30px;">Log this every Sunday. Don't change the program based on a single bad data point — look at trends across 2-3 weeks. If you've hit the W4 checkpoint and still don't feel "ready", that's normal. Real readiness shows up at W8.</p>
+<table class="tracking-table">
+<thead><tr><th>Metric</th><th>Baseline</th><th>W4 Target</th><th>W8 Target</th><th>W12 Target</th><th>W16 Target</th><th>Actual</th></tr></thead>
+<tbody>
+<tr><td class="metric">Bodyweight (AM)</td><td>95 kg</td><td>92-93 kg</td><td>91 kg</td><td>89-90 kg</td><td>88-89 kg</td><td>__</td></tr>
+<tr><td class="metric">Body Fat %</td><td>~32%</td><td>~28%</td><td>~24%</td><td>~21%</td><td>18-20%</td><td>__</td></tr>
+<tr><td class="metric">Squat 1RM (est.)</td><td>118 kg</td><td>~120 kg</td><td>≥130 kg</td><td>≥140 kg</td><td>≥145 kg</td><td>__</td></tr>
+<tr><td class="metric">Deadlift 1RM (est.)</td><td>~135 kg</td><td>~140 kg</td><td>≥150 kg</td><td>≥165 kg</td><td>≥170 kg</td><td>__</td></tr>
+<tr><td class="metric">Bench 1RM</td><td>~95 kg</td><td>~100 kg</td><td>≥105 kg</td><td>≥112.5 kg</td><td>≥115 kg</td><td>__</td></tr>
+<tr><td class="metric">Approach 2-foot</td><td>70 cm</td><td>72 cm</td><td>75 cm</td><td>78 cm</td><td>80+ cm</td><td>__</td></tr>
+<tr><td class="metric">Approach 1-foot L</td><td>60 cm</td><td>62 cm</td><td>65 cm</td><td>70 cm</td><td>75 cm</td><td>__</td></tr>
+<tr><td class="metric">Approach 1-foot R</td><td>70 cm</td><td>70 cm</td><td>73 cm</td><td>75 cm</td><td>78 cm</td><td>__</td></tr>
+<tr><td class="metric">L/R Asymmetry</td><td>14%</td><td>&lt;12%</td><td>&lt;8%</td><td>&lt;5%</td><td>&lt;5%</td><td>__</td></tr>
+<tr><td class="metric">Glute pain (0-10)</td><td>5/10</td><td>0/10</td><td>0/10</td><td>0/10</td><td>0/10</td><td>__</td></tr>
+<tr><td class="metric">Knee pain (0-10)</td><td>1-2/10</td><td>0/10</td><td>0/10</td><td>0/10</td><td>0/10</td><td>__</td></tr>
+<tr><td class="metric">Achilles pain (0-10)</td><td>1-2/10</td><td>0/10</td><td>0/10</td><td>0/10</td><td>0/10</td><td>__</td></tr>
+<tr><td class="metric">Practice tolerance</td><td>1h15m</td><td>90 min</td><td>90 min full</td><td>100 min</td><td>100+ min</td><td>__</td></tr>
+<tr><td class="metric">Sleep avg (hrs)</td><td>—</td><td>≥8h</td><td>≥8h</td><td>≥8.5h</td><td>≥9h W16</td><td>__</td></tr>
+</tbody>
+</table>
+
+<div style="margin-top:40px;padding:30px;background:var(--ink);color:var(--paper);">
+<div style="font-family:'Bebas Neue',sans-serif;font-size:20px;letter-spacing:0.15em;color:var(--gold);margin-bottom:14px;text-transform:uppercase;">// When to Adjust the Program</div>
+<ul style="list-style:none;padding:0;font-family:'Oswald',sans-serif;font-weight:300;font-size:14px;line-height:1.8;">
+<li><strong style="color:var(--blood)">→ Joint pain &gt; 3/10 for 2+ sessions:</strong> drop that movement, sub a regression, retest in a week.</li>
+<li><strong style="color:var(--blood)">→ Missing a strength target by 5+ kg:</strong> hold the load, repeat the week. Don't push.</li>
+<li><strong style="color:var(--blood)">→ Sleep &lt; 7h for 3+ nights:</strong> drop the next plyo session, replace with skill work.</li>
+<li><strong style="color:var(--blood)">→ Bodyweight up &gt; 1 kg week-on-week:</strong> recheck calories. Likely overshooting weekend.</li>
+<li><strong style="color:var(--blood)">→ Bodyweight down &gt; 1.5 kg week-on-week:</strong> too aggressive — add 200 kcal/day for 5 days.</li>
+<li><strong style="color:var(--blood)">→ Glute medius flare-up:</strong> immediate 5-day deload, glute rehab 2x daily, return to W2 progression.</li>
+<li><strong style="color:var(--blood)">→ Two practices in a row feel "flat":</strong> probably CNS fatigue. Take 48h with no plyo or sprint.</li>
+</ul>
+</div>
+
+<div style="margin-top:30px;padding:30px;background:var(--paper);border:3px solid var(--ink);">
+<div style="font-family:'Bebas Neue',sans-serif;font-size:20px;letter-spacing:0.15em;color:var(--blood);margin-bottom:14px;text-transform:uppercase;">// What NOT to do</div>
+<ul style="list-style:none;padding:0;font-family:'Oswald',sans-serif;font-weight:300;font-size:14px;line-height:1.8;">
+<li>→ Don't change the program because of one bad week. Trends over 2-3 weeks only.</li>
+<li>→ Don't add extra sessions because you "feel good" in Phase 4. The temptation will be enormous. Resist it.</li>
+<li>→ Don't return to 18:6 fasting until well into the season at maintenance.</li>
+<li>→ Don't test 1RM more often than the schedule says — every test costs 5-7 days of recovery.</li>
+<li>→ Don't compare yourself to the 23-year-old version of you. Compare to last week.</li>
+<li>→ Don't skip glute medius work even when it feels stupid. It's prevention, not performance.</li>
+<li>→ Don't squat heavy if Copenhagen plank time-under-tension is dropping. That's the canary.</li>
+</ul>
+</div>
+
+</div>
+</section>
+
+<section class="closing">
+<div class="container">
+<div class="closing-mark">RUN<br>IT<br><span class="red">BACK.</span></div>
+<div class="closing-quote">
+You've been a starter at this level before. You were the American Stopper. You were a top-10 MVP. The body that got you there is still in there, buried under three weeks of bad data and five months of compensations. Sixteen weeks of work pulls it out.<br><br>
+The work is unglamorous. The progress is non-linear. The discipline is everything.<br><br>
+<em style="color:var(--blood);font-style:normal;">Show up.</em>
+</div>
+<div class="closing-sig">// PROTOCOL : DM-COMEBACK-2026 // START DATE : MAY 5 // END DATE : AUG 24</div>
+</div>
+</section>
+
+<script>
+(function () {
+  var nav = document.querySelector('.week-nav');
+  var hamburger = document.querySelector('.week-nav-hamburger');
+  var drawer = document.querySelector('.week-nav-drawer');
+
+  // Assign IDs to week divs, inject toggle chevron, collapse all
+  document.querySelectorAll('.week').forEach(function (week) {
+    var numEl = week.querySelector('.week-num');
+    if (!numEl) return;
+    var id = numEl.textContent.trim().toLowerCase();
+    week.id = id;
+    week.classList.add('collapsed');
+
+    var header = week.querySelector('.week-header');
+    if (header) {
+      var tog = document.createElement('span');
+      tog.className = 'week-toggle';
+      tog.textContent = '▼';
+      header.insertBefore(tog, header.firstChild);
+      header.addEventListener('click', function () {
+        week.classList.toggle('collapsed');
+      });
+    }
+  });
+
+  // Shared: expand a week and scroll to it, close drawer
+  function goToWeek(weekId) {
+    var target = document.getElementById(weekId);
+    if (!target) return;
+    closeDrawer();
+    target.classList.remove('collapsed');
+    requestAnimationFrame(function () {
+      target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
+  }
+
+  function openDrawer() {
+    nav.classList.add('open');
+    hamburger.setAttribute('aria-expanded', 'true');
+    drawer.setAttribute('aria-hidden', 'false');
+  }
+
+  function closeDrawer() {
+    nav.classList.remove('open');
+    hamburger.setAttribute('aria-expanded', 'false');
+    drawer.setAttribute('aria-hidden', 'true');
+  }
+
+  // Hamburger toggle
+  hamburger.addEventListener('click', function () {
+    nav.classList.contains('open') ? closeDrawer() : openDrawer();
+  });
+
+  // Desktop nav buttons
+  document.querySelectorAll('.week-nav-btn').forEach(function (btn) {
+    btn.addEventListener('click', function () { goToWeek(btn.dataset.week); });
+  });
+
+  // Drawer buttons
+  document.querySelectorAll('.week-nav-drawer-btn').forEach(function (btn) {
+    btn.addEventListener('click', function () { goToWeek(btn.dataset.week); });
+  });
+
+  // Close drawer on outside tap
+  document.addEventListener('click', function (e) {
+    if (nav.classList.contains('open') && !nav.contains(e.target)) {
+      closeDrawer();
+    }
+  });
+})();
+</script>
+</body></html>
